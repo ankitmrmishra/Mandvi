@@ -66,8 +66,8 @@ export default function Home() {
             </h1>
 
             <p className="text-gray-400 mb-8">
-              I'm a dedicated law student and an avid book enthusiast. <br /> My
-              passions lie at the intersection of legal research, literature,
+              I am a dedicated law student and an avid book enthusiast. <br />{" "}
+              My passions lie at the intersection of legal research, literature,
               and a deep love for knowledge.
             </p>
 
@@ -77,7 +77,7 @@ export default function Home() {
                 className="bg-white text-black hover:bg-gray-200"
               >
                 <MessageSquare className="w-4 h-4 mr-2" />
-                Let's Connect
+                Lets Connect
               </Button>
               <Button
                 variant="ghost"
@@ -166,12 +166,12 @@ export function WhoIAm() {
     {
       question: "How can your blog help me understand my legal rights?",
       answer:
-        "My blog aims to break down complex legal concepts into easily understandable content. I share insights from my studies and internship experiences, provide explanations of common legal procedures, and offer guidance on how to approach various legal situations. Remember, while my blog provides general information, it's always best to consult with a qualified lawyer for specific legal advice.",
+        "My blog aims to break down complex legal concepts into easily understandable content. I share insights from my studies and internship experiences, provide explanations of common legal procedures, and offer guidance on how to approach various legal situations. Remember, while my blog provides general information, it is always best to consult with a qualified lawyer for specific legal advice.",
     },
     {
       question: "Do you offer legal consultations or services?",
       answer:
-        "As a law scholar and intern, I'm not yet qualified to offer legal services or consultations. My blog is for informational purposes only. If you need legal assistance, I recommend contacting a licensed attorney or seeking help from legal aid organizations.",
+        "As a law scholar and intern, I am not yet qualified to offer legal services or consultations. My blog is for informational purposes only. If you need legal assistance, I recommend contacting a licensed attorney or seeking help from legal aid organizations.",
     },
     {
       question: "How does your artistic side influence your legal work?",
@@ -187,11 +187,11 @@ export function WhoIAm() {
         <div className="flex flex-col md:flex-row gap-8">
           <div className="flex-1">
             <p className="text-gray-400 mb-4">
-              Greetings! I'm Mandvi Tripathi, a dedicated law scholar with a
+              Greetings! I am Mandvi Tripathi, a dedicated law scholar with a
               passion for demystifying the Indian legal system. Committed to
               justice and empowering individuals with legal knowledge, I aim to
               make the law accessible to everyone through my experiences and
-              insights. Beyond the legal world, I'm an avid reader, writer, and
+              insights. Beyond the legal world, I am an avid reader, writer, and
               mandala artist, bringing creativity and unique perspectives to
               everything I do.
             </p>
@@ -229,7 +229,7 @@ export function WhoIAm() {
               className="w-full h-auto rounded-lg"
             />
             <Button variant="outline" className="mt-4 bg-black">
-              Let's talk
+              Lets talk
             </Button>
           </div>
           <div className="flex-1">
@@ -275,7 +275,7 @@ export function BlogSection() {
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           <BlogCard
-            title="Demystifying Fundamental Rights: A Citizen's Guide"
+            title="Demystifying Fundamental Rights: A Guide of Citizens"
             icon={<ArrowRight className="w-8 h-8" />}
           />
           <BlogCard
