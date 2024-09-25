@@ -396,12 +396,6 @@ function CaseStudyCard({
   );
 }
 
-interface AnimatedBannerProps {
-  words: string[];
-  backgroundColor: string;
-  textColor: string;
-}
-
 const words = [
   "LEGAL STUDIES",
   "JURISPRUDENCE",
