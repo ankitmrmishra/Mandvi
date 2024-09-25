@@ -1,12 +1,16 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { MessageSquare, Sparkle } from "lucide-react";
+import {
+  MessageSquare,
+  Sparkle,
+  ArrowRight,
+  ArrowUpRight,
+  ChevronDown,
+  Star,
+} from "lucide-react";
 import { useState } from "react";
 import React from "react";
-import { Star } from "lucide-react";
 
-import { ChevronDown } from "lucide-react";
-import { ArrowRight, ArrowUpRight } from "lucide-react";
 import Marquee from "react-fast-marquee";
 
 export default function Home() {
