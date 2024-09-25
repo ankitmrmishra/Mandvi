@@ -402,49 +402,6 @@ interface AnimatedBannerProps {
   textColor: string;
 }
 
-function AnimatedBanner({
-  words,
-  backgroundColor,
-  textColor,
-}: AnimatedBannerProps) {
-  return (
-    <div className="w-full bg-gray-900 overflow-hidden">
-      <div className="animate-slide relative py-2">
-        <div
-          className={`whitespace-nowrap text-sm font-semibold ${backgroundColor} ${textColor}`}
-          style={{ transform: "rotate(-2deg)" }}
-        >
-          {words.map((word, index) => (
-            <React.Fragment key={index}>
-              <span className="px-4">{word}</span>
-              <Star className="inline w-4 h-4 mx-1" />
-            </React.Fragment>
-          ))}
-          {words.map((word, index) => (
-            <React.Fragment key={`repeat-${index}`}>
-              <span className="px-4">{word}</span>
-              <Star className="inline w-4 h-4 mx-1" />
-            </React.Fragment>
-          ))}
-        </div>
-      </div>
-      <style jsx>{`
-        @keyframes slide {
-          0% {
-            transform: translateX(0%);
-          }
-          100% {
-            transform: translateX(-50%);
-          }
-        }
-        .animate-slide {
-          animation: slide 30s linear infinite;
-        }
-      `}</style>
-    </div>
-  );
-}
-
 const words = [
   "LEGAL STUDIES",
   "JURISPRUDENCE",
