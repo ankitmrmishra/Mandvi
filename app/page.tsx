@@ -150,7 +150,7 @@ export default function Home() {
   );
 }
 
-export function WhoIAm() {
+function WhoIAm() {
   const [openQuestion, setOpenQuestion] = useState<number | null>(null);
 
   const toggleQuestion = (index: number) => {
@@ -260,7 +260,7 @@ export function WhoIAm() {
   );
 }
 
-export function BlogSection() {
+function BlogSection() {
   return (
     <div className="min-h-screen  text-white py-16 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
@@ -305,7 +305,7 @@ function BlogCard({ title, icon }: { title: string; icon: JSX.Element }) {
     </div>
   );
 }
-export function FeaturedCaseStudies() {
+function FeaturedCaseStudies() {
   return (
     <div className="min-h-screen bg-[#0c1015] text-white py-16 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
@@ -402,7 +402,7 @@ interface AnimatedBannerProps {
   textColor: string;
 }
 
-export function AnimatedBanner({
+function AnimatedBanner({
   words,
   backgroundColor,
   textColor,
