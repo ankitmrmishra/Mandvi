@@ -6,7 +6,6 @@ import {
   ArrowRight,
   ArrowUpRight,
   ChevronDown,
-  Star,
 } from "lucide-react";
 import { useState } from "react";
 import React from "react";
