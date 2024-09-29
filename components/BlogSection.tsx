@@ -51,7 +51,7 @@ export default function BlogSection() {
             ? "Loading..."
             : hasNextPage
             ? "Load more"
-            : "That's all for today!"}
+            : "No more Blogs"}
         </Button>
       </div>
     </div>
@@ -64,7 +64,6 @@ type Props = {
 };
 
 export function BlogCard({ post, icon }: Props) {
-  const coverImageUrl = post.coverImage?.url;
   const subtitle =
     post.subtitle || post.content?.text || "No description available";
 

@@ -79,7 +79,7 @@ export default function WhoIAm() {
               className="w-full h-auto rounded-lg"
             />
             <Button variant="outline" className="mt-4 bg-black">
-              Let's talk
+              Connect with me
             </Button>
           </div>
           <div className="flex-1">
