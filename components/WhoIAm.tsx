@@ -34,7 +34,7 @@ export default function WhoIAm() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#0c1015] text-white p-8">
+    <div id="About" className="min-h-screen bg-[#0c1015] text-white p-8">
       <section className="mb-16">
         <h2 className="text-2xl font-bold mb-4">Know who am I</h2>
         <div className="flex flex-col md:flex-row gap-8">
@@ -52,9 +52,9 @@ export default function WhoIAm() {
               Join me on this journey as we explore the intersection of law,
               art, and everyday life!
             </p>
-            <Button variant="outline" className="mt-4 bg-black">
+            {/* <Button variant="outline" className="mt-4 bg-black">
               View More
-            </Button>
+            </Button> */}
           </div>
           <div className="flex-1 flex justify-end">
             <div className="relative">
@@ -79,10 +79,10 @@ export default function WhoIAm() {
               className="w-full h-auto rounded-lg"
             />
             <Button variant="outline" className="mt-4 bg-black">
-              Connect with me
+              <a href="mailto:lawgicalinsights@gmail.com">Connect with me</a>
             </Button>
           </div>
-          <div className="flex-1">
+          <div id="FAQ" className="flex-1">
             {faqData.map((faq, index) => (
               <div key={index} className="mb-4">
                 <button

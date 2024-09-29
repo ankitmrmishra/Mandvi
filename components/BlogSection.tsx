@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { getPosts } from "@/lib/request";
 import { PostMetadata } from "@/lib/types";
+import Image from "next/image";
 // import { Card, CardContent, CardHeader } from "./ui/card";
 export default function BlogSection() {
   const { data, hasNextPage, fetchNextPage, isFetching } = useInfiniteQuery({
@@ -17,7 +18,10 @@ export default function BlogSection() {
   });
 
   return (
-    <div className="min-h-screen text-white py-16 px-4 sm:px-6 lg:px-8">
+    <div
+      id="Blogs"
+      className="min-h-screen text-white py-16 px-4 sm:px-6 lg:px-8"
+    >
       <div className="max-w-7xl mx-auto">
         <p className="text-[#4d9e71] text-sm font-medium tracking-widest mb-4">
           THOUGHTS AND BLOGS
@@ -68,16 +72,30 @@ export function BlogCard({ post, icon }: Props) {
     post.subtitle || post.content?.text || "No description available";
 
   return (
-    <div className="relative w-full aspect-square  rounded-[2rem] p-8 flex flex-col justify-between overflow-hidden group bg-hero-pattern">
-      <h3 className="relative text-white text-3xl font-bold leading-tight z-10">
-        <Link href={`/${post.slug}`} className="hover:underline">
+    <div className="relative w-full aspect-square  rounded-[2rem] p-6 flex flex-col justify-between overflow-hidden group">
+      <Noise />
+      <h3 className="relative text-white text-3xl font-bold leading-[1px] z-10">
+        <Link href={`/${post.slug}`} className="hover:underline text-lg">
           {post.title}
         </Link>
       </h3>
 
-      <p className="text-gray-500 line-clamp-4 mt-3">{subtitle}</p>
-      <div className="relative z-10 transition-transform duration-300 group-hover:translate-x-1 ">
-        {icon}{" "}
+      {post.coverImage && (
+        <Image
+          src={post.coverImage.url}
+          alt={post.title}
+          width={800}
+          height={600}
+          className="rounded-t-[1.2rem] py-2"
+        />
+      )}
+
+      <p className="text-gray-500 line-clamp-1 mt-3">{subtitle}</p>
+      <div className="relative z-10 transition-transform duration-300 group-hover:translate-x-1 flex justify-between align-middle items-center">
+        <Link href={`/${post.slug}`} className="hover:underline">
+          {icon}
+        </Link>
+
         <div className="mt-3 flex gap-3 items-center">
           {post?.author.profilePicture && (
             <img
@@ -91,3 +109,14 @@ export function BlogCard({ post, icon }: Props) {
     </div>
   );
 }
+export const Noise = () => {
+  return (
+    <div
+      className="absolute inset-0 w-full h-full scale-[1.6] transform opacity-10 [mask-image:radial-gradient(#fff,transparent,45%)]"
+      style={{
+        backgroundImage: "url(/noise.webp)",
+        backgroundSize: "30%",
+      }}
+    ></div>
+  );
+};

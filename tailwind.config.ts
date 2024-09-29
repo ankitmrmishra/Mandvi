@@ -11,6 +11,7 @@ const config: Config = {
     extend: {
       backgroundImage: {
         "hero-pattern": "url('/cornered-stairs.png')",
+        noise: "url('/noise.webp')",
       },
       colors: {
         background: "hsl(var(--background))",

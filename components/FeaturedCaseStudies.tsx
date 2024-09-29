@@ -3,7 +3,10 @@ import { ArrowRight } from "lucide-react";
 
 export default function FeaturedCaseStudies() {
   return (
-    <div className="min-h-screen bg-[#0c1015] text-white py-16 px-4 sm:px-6 lg:px-8">
+    <div
+      id="CaseStudy"
+      className="min-h-screen bg-[#0c1015] text-white py-16 px-4 sm:px-6 lg:px-8"
+    >
       <div className="max-w-7xl mx-auto">
         <p className="text-[#4d9e71] text-sm font-medium tracking-widest mb-4 uppercase">
           Curated Work

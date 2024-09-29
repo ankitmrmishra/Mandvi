@@ -25,7 +25,7 @@ export default function Post({ slug }: Props) {
   if (!data) return notFound();
 
   return (
-    <div className="md:max-w-4xl p-2 bg-black text-white">
+    <div className="md:max-w-4xl p-2 bg-[#0c1015] text-white">
       <img src={data?.coverImage?.url} alt="" className="w-full" />
       <h1 className="text-4xl lg:text-6xl text-center leading-relaxed font-bold mt-5">
         {data?.title}
