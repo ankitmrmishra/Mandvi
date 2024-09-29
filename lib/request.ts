@@ -7,7 +7,8 @@ import {
   GetPostBySlugResponse,
 } from "./types";
 
-const endpoint = process.env.NEXT_PUBLIC_HASHNODE_ENDPOINT;
+const endpoint = process?.env.NEXT_PUBLIC_HASHNODE_ENDPOINT as string;
+
 const host = process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST;
 
 export async function getBlogName() {
