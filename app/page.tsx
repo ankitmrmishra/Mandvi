@@ -3,7 +3,7 @@ import Hero from "@/components/Hero";
 import BlogSection from "@/components/BlogSection";
 import FeaturedCaseStudies from "@/components/FeaturedCaseStudies";
 import WhoIAm from "@/components/WhoIAm";
-import Posts from "@/components/post";
+
 import { getPosts } from "@/lib/request";
 import { PostMetadata } from "@/lib/types";
 import {

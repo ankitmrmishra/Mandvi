@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { getPosts } from "@/lib/request";
 import { PostMetadata } from "@/lib/types";
-import { Card, CardContent, CardHeader } from "./ui/card";
+// import { Card, CardContent, CardHeader } from "./ui/card";
 export default function BlogSection() {
   const { data, hasNextPage, fetchNextPage, isFetching } = useInfiniteQuery({
     queryKey: ["posts"],
