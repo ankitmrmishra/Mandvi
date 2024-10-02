@@ -4,8 +4,8 @@ import { MessageSquare, ArrowRight } from "lucide-react";
 
 export default function Hero() {
   return (
-    <div className="min-h-screen bg-[#0c1015] text-white flex flex-col justify-between p-6 relative overflow-hidden">
-      <main className="flex-grow flex flex-col items-center justify-center text-center relative z-10">
+    <div className="min-h-screen bg-[#0c1015] text-white flex flex-col justify-between md:p-6 p-2  relative overflow-hidden ">
+      <main className="flex-grow flex flex-col items-center justify-center text-center relative z-10 -mt-28 ">
         {/* Decorative elements */}
         <div className="absolute top-0 left-1/4 w-2 h-2 bg-green-400 rounded-full"></div>
         <div className="absolute top-1/4 right-1/4 w-1 h-1 bg-white rounded-full"></div>
