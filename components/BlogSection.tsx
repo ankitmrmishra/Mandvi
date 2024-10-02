@@ -68,18 +68,25 @@ type Props = {
 };
 
 export function BlogCard({ post, icon }: Props) {
-  const subtitle =
-    post.subtitle || post.content?.text || "No description available";
-
   return (
-    <div className="relative w-full aspect-square  rounded-[2rem] p-6 flex flex-col justify-between overflow-hidden group">
-      <Noise />
+    <div className="relative w-full aspect-square h-[30rem] rounded-[2rem] p-6 flex flex-col justify-between overflow-hidden group bg-black/50">
       <h3 className="relative text-white text-3xl font-bold leading-[1px] z-10">
-        <Link href={`/${post.slug}`} className="hover:underline text-lg">
+        <Link
+          href={`/${post.slug}`}
+          className="hover:underline text-lg md:text-xl"
+        >
           {post.title}
         </Link>
+        <div className="mt-3 flex gap-3 items-center text-base">
+          {post?.author.profilePicture && (
+            <img
+              src={post.author.profilePicture}
+              className="h-7 w-7 rounded-full"
+            />
+          )}{" "}
+          {post.author.name}
+        </div>
       </h3>
-
       {post.coverImage && (
         <Image
           src={post.coverImage.url}
@@ -90,21 +97,13 @@ export function BlogCard({ post, icon }: Props) {
         />
       )}
 
-      <p className="text-gray-500 line-clamp-1 mt-3">{subtitle}</p>
-      <div className="relative z-10 transition-transform duration-300 group-hover:translate-x-1 flex justify-between align-middle items-center">
-        <Link href={`/${post.slug}`} className="hover:underline">
+      <div className="relative z-10 transition-transform duration-300 flex justify-between align-middle items-center">
+        <Link
+          href={`/${post.slug}`}
+          className="group-hover:-rotate-45 group-hover:text-blue-600 transition-all delay-150 duration-150"
+        >
           {icon}
         </Link>
-
-        <div className="mt-3 flex gap-3 items-center">
-          {post?.author.profilePicture && (
-            <img
-              src={post.author.profilePicture}
-              className="h-7 w-7 rounded-full"
-            />
-          )}{" "}
-          {post.author.name}
-        </div>
       </div>
     </div>
   );
