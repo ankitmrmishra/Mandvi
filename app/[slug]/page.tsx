@@ -13,7 +13,7 @@ export async function generateMetadata({
 }) {
   const data = await getPostBySlug(params.slug);
   return {
-    title: data.title,
+    title: data?.title || "Blog Post",
   };
 }
 
@@ -30,10 +30,8 @@ export default async function BlogPostPage({
   });
 
   return (
-    <div className="min-w-7xl p-4 w-full xl:p-0 mx-auto bg-[#0c1015] md:flex justify-center align-middle items-center">
-      <HydrationBoundary state={dehydrate(queryClient)}>
-        <Post slug={params.slug} />
-      </HydrationBoundary>
-    </div>
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <Post slug={params.slug} />
+    </HydrationBoundary>
   );
 }

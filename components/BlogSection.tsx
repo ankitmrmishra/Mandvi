@@ -1,121 +1,174 @@
 "use client";
 import React from "react";
-import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import { getPosts, SanityPost } from "@/lib/request";
 import Link from "next/link";
-import { useInfiniteQuery } from "@tanstack/react-query";
-import { getPosts } from "@/lib/request";
-import { PostMetadata } from "@/lib/types";
-import Image from "next/image";
-// import { Card, CardContent, CardHeader } from "./ui/card";
+import { urlFor } from "@/lib/sanity";
+
 export default function BlogSection() {
-  const { data, hasNextPage, fetchNextPage, isFetching } = useInfiniteQuery({
+  const { data: posts, isLoading } = useQuery({
     queryKey: ["posts"],
     queryFn: getPosts,
-    getNextPageParam: (lastPage) =>
-      lastPage.length < 4 ? undefined : lastPage[lastPage.length - 1].cursor,
-    initialPageParam: "",
   });
 
   return (
-    <div
-      id="Blogs"
-      className="min-h-screen text-white py-16 px-4 sm:px-6 lg:px-8"
-    >
-      <div className="max-w-7xl mx-auto">
-        <p className="text-[#4d9e71] text-sm font-medium tracking-widest mb-4">
-          THOUGHTS AND BLOGS
-        </p>
-        <h2 className="text-4xl sm:text-5xl font-bold mb-4">
-          Read My Narrative
-        </h2>
-        <p className="text-gray-400 text-lg mb-12">
-          Pages filled with legal insights, literary musings, and much more
-        </p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {data?.pages.map((group) =>
-            group?.map((post) => (
-              <BlogCard
-                key={post.cursor}
-                post={post.node}
-                icon={<ArrowRight />}
-              />
-            ))
+    <>
+      {/* Latest Articles Section */}
+      <section id="articles" className="section-spacing border-t border-black">
+        <div className="container-fixed">
+          {/* Section Header */}
+          <div className="mb-12">
+            <h2
+              className="text-4xl md:text-5xl lg:text-6xl font-black uppercase"
+              style={{ letterSpacing: "-0.03em" }}
+            >
+              LATEST WRITING
+            </h2>
+          </div>
+
+          {isLoading ? (
+            <div className="flex justify-center items-center py-20">
+              <div className="w-8 h-8 border-2 border-foreground/20 border-t-foreground animate-spin"></div>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
+              {/* Skip the first post (already shown in hero) and show next 6 */}
+              {posts?.slice(1, 7).map((post) => (
+                <BlogCard key={post._id} post={post} />
+              ))}
+            </div>
           )}
         </div>
-      </div>
-      <div className="flex justify-center align-middle items-center w-full py-5">
-        <Button
-          className="bg-black text-white "
-          variant="outline"
-          disabled={!hasNextPage || isFetching}
-          onClick={() => fetchNextPage()}
-        >
-          {isFetching
-            ? "Loading..."
-            : hasNextPage
-            ? "Load more"
-            : "No more Blogs"}
-        </Button>
-      </div>
-    </div>
+      </section>
+
+      {/* More Articles Section */}
+      {posts && posts.length > 7 && (
+        <section className="section-spacing border-t border-black">
+          <div className="container-fixed">
+            {/* Section Header */}
+            <div className="flex items-center justify-between mb-12">
+              <h2
+                className="text-3xl md:text-4xl lg:text-5xl font-black uppercase"
+                style={{ letterSpacing: "-0.03em" }}
+              >
+                MORE ARTICLES
+              </h2>
+              <Link
+                href="/archive"
+                className="text-xs uppercase font-bold hover:opacity-70 transition-opacity"
+                style={{ letterSpacing: "0.1em" }}
+              >
+                VIEW ALL →
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
+              {/* Show articles 8 onwards */}
+              {posts?.slice(7, 13).map((post) => (
+                <BlogCard key={post._id} post={post} />
+              ))}
+            </div>
+
+            {/* See All Button */}
+            {posts.length > 13 && (
+              <div className="mt-16 text-center">
+                <Link
+                  href="/archive"
+                  className="inline-block px-12 py-4 bg-black text-white font-black uppercase text-sm hover:bg-black/90 transition-colors"
+                  style={{ letterSpacing: "0.1em" }}
+                >
+                  VIEW ALL ARTICLES
+                </Link>
+              </div>
+            )}
+          </div>
+        </section>
+      )}
+    </>
   );
 }
 
-type Props = {
-  post: PostMetadata;
-  icon: JSX.Element;
-};
+interface BlogCardProps {
+  post: SanityPost;
+}
 
-export function BlogCard({ post, icon }: Props) {
+export function BlogCard({ post }: BlogCardProps) {
+  // Resolve image url
+  let imageUrl = "/placeholder.svg";
+  if (post.featuredImage) {
+    try {
+      imageUrl = urlFor(post.featuredImage).width(600).height(400).url();
+    } catch {
+      const img = post.featuredImage as { url?: string };
+      if (img && img.url) imageUrl = img.url;
+    }
+  } else {
+    const p = post as { coverImage?: { url?: string } };
+    if (p.coverImage?.url) {
+      imageUrl = p.coverImage.url;
+    }
+  }
+
+  // Formatting date
+  const publishDate = post.publishedDate
+    ? new Date(post.publishedDate).toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+      })
+    : "Recent";
+
+  // Category and reading time labels
+  const categoryLabel =
+    post.categories && post.categories.length > 0
+      ? post.categories[0].title.toUpperCase()
+      : "ESSAY";
+  const readingTimeLabel = post.readingTime || "5 min";
+
   return (
-    <div className="relative w-full aspect-square h-[30rem] rounded-[2rem] p-6 flex flex-col justify-between overflow-hidden group bg-black/50">
-      <h3 className="relative text-white text-3xl font-bold leading-[1px] z-10">
-        <Link
-          href={`/${post.slug}`}
-          className="hover:underline text-lg md:text-xl"
+    <Link href={`/${post.slug}`} className="group block">
+      <article className="h-full flex flex-col">
+        {/* Image */}
+        <div className="relative aspect-[4/3] mb-6 overflow-hidden bg-muted">
+          <img
+            src={imageUrl}
+            alt={post.title}
+            className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105 img-grayscale"
+          />
+        </div>
+
+        {/* Category Badge */}
+        <div className="mb-4">
+          <span className="pill-badge text-[10px]">{categoryLabel}</span>
+        </div>
+
+        {/* Title */}
+        <h3
+          className="text-xl md:text-2xl font-black uppercase mb-4 group-hover:opacity-70 transition-opacity leading-tight"
+          style={{ letterSpacing: "-0.03em" }}
         >
           {post.title}
-        </Link>
-        <div className="mt-3 flex gap-3 items-center text-base">
-          {post?.author.profilePicture && (
-            <img
-              src={post.author.profilePicture}
-              className="h-7 w-7 rounded-full"
-            />
-          )}{" "}
-          {post.author.name}
-        </div>
-      </h3>
-      {post.coverImage && (
-        <Image
-          src={post.coverImage.url}
-          alt={post.title}
-          width={800}
-          height={600}
-          className="rounded-t-[1.2rem] py-2"
-        />
-      )}
+        </h3>
 
-      <div className="relative z-10 transition-transform duration-300 flex justify-between align-middle items-center">
-        <Link
-          href={`/${post.slug}`}
-          className="group-hover:-rotate-45 group-hover:text-blue-600 transition-all delay-150 duration-150"
-        >
-          {icon}
-        </Link>
-      </div>
-    </div>
+        {/* Excerpt */}
+        {post.excerpt && (
+          <p className="text-sm leading-[1.6] mb-4 line-clamp-2">
+            {post.excerpt}
+          </p>
+        )}
+
+        {/* Meta - Label/Value pairs */}
+        <div className="flex items-center gap-4 mt-auto text-xs">
+          <div className="flex items-center gap-2">
+            <span className="meta-label">Date</span>
+            <span className="meta-value">{publishDate}</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="meta-label">Read</span>
+            <span className="meta-value">{readingTimeLabel}</span>
+          </div>
+        </div>
+      </article>
+    </Link>
   );
 }
-export const Noise = () => {
-  return (
-    <div
-      className="absolute inset-0 w-full h-full scale-[1.6] transform opacity-10 [mask-image:radial-gradient(#fff,transparent,45%)]"
-      style={{
-        backgroundImage: "url(/noise.webp)",
-        backgroundSize: "30%",
-      }}
-    ></div>
-  );
-};

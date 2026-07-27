@@ -1,123 +1,186 @@
-import request, { gql } from "graphql-request";
-import {
-  GetPostsArgs,
-  GetPostsResponse,
-  SubscribeToNewsletterResponse,
-  PublicationName,
-  GetPostBySlugResponse,
-} from "./types";
+import { client } from "./sanity";
 
-const endpoint = process?.env.NEXT_PUBLIC_HASHNODE_ENDPOINT as string;
-
-const host = process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST;
-
-export async function getBlogName() {
-  const query = gql`
-    query getBlogName($host: String!) {
-      publication(host: $host) {
-        title
-        displayTitle
-        favicon
-      }
-    }
-  `;
-
-  const response = await request<PublicationName>(endpoint, query, {
-    host,
-  });
-
-  return {
-    title: response.publication.title,
-    displayTitle: response.publication.displayTitle,
-    favicon: response.publication.favicon,
-  };
+// Types corresponding to Sanity schemas
+export interface SanityAuthor {
+  name: string;
+  position?: string;
+  photo?: unknown;
+  bio?: unknown;
+  orcid?: string;
+  googleScholar?: string;
 }
 
-export async function getPosts({ first = 9, pageParam = "" }: GetPostsArgs) {
-  const query = gql`
-    query Publication($host: String!, $first: Int!, $after: String) {
-      publication(host: $host) {
-        posts(first: $first, after: $after) {
-          edges {
-            node {
-              id
-              title
-              subtitle
-              slug
-              content {
-                text
-              }
-              coverImage {
-                url
-              }
-              author {
-                name
-                profilePicture
-              }
-            }
-            cursor
-          }
-        }
-      }
-    }
-  `;
-
-  const response = await request<GetPostsResponse>(endpoint, query, {
-    host,
-    first,
-    after: pageParam,
-  });
-
-  return response.publication.posts.edges;
+export interface SanityCategory {
+  title: string;
+  slug: string;
+  icon?: string;
+  color?: string;
 }
 
-export async function subscribeToNewsletter(email: string) {
-  const mutation = gql`
-    mutation subscribeToNewsletter($host: String!, $email: String!) {
-      subscribeToNewsletter(input: { email: $email, publicationHost: $host }) {
-        status
-      }
-    }
-  `;
+export interface SanityPost {
+  _id: string;
+  _type: string;
+  title: string;
+  slug: string;
+  subtitle?: string;
+  excerpt?: string;
+  featuredImage?: unknown;
+  publishedDate: string;
+  readingTime?: string;
+  author?: SanityAuthor;
+  categories?: SanityCategory[];
+  content?: unknown;
+}
 
-  const response = await request<SubscribeToNewsletterResponse>(
-    endpoint,
-    mutation,
-    {
-      host,
+export interface SanityBookReview {
+  _id: string;
+  bookTitle: string;
+  authorOfBook: string;
+  bookCover?: unknown;
+  rating: number;
+  shortSummary: string;
+  publishedDate: string;
+  genre?: string;
+}
+
+export async function getPosts(): Promise<SanityPost[]> {
+  try {
+    // Fetch only posts (simplified - all content is posts with categories)
+    const query = `*[
+      _type == "post" 
+      && !(_id in path("drafts.**"))
+    ] | order(publishedDate desc) {
+      _id,
+      _type,
+      title,
+      "slug": slug.current,
+      subtitle,
+      excerpt,
+      featuredImage,
+      publishedDate,
+      readingTime,
+      author-> {
+        name,
+        photo
+      },
+      categories[]-> {
+        title,
+        "slug": slug.current
+      }
+    }`;
+    const posts = await client.fetch(query);
+    return posts || [];
+  } catch (error) {
+    console.error("Failed to fetch posts from Sanity.", error);
+  }
+  return [];
+}
+
+export async function getPostBySlug(slug: string): Promise<SanityPost | null> {
+  try {
+    // Fetch only from posts
+    const query = `*[
+      _type == "post" 
+      && slug.current == $slug
+    ][0] {
+      _id,
+      _type,
+      title,
+      "slug": slug.current,
+      subtitle,
+      excerpt,
+      featuredImage,
+      publishedDate,
+      readingTime,
+      author-> {
+        name,
+        photo
+      },
+      categories[]-> {
+        title,
+        "slug": slug.current
+      },
+      content
+    }`;
+    const post = await client.fetch(query, { slug });
+    return post || null;
+  } catch (error) {
+    console.error("Failed to fetch post by slug from Sanity.", error);
+  }
+  return null;
+}
+
+export async function getBookReviews(): Promise<SanityBookReview[]> {
+  try {
+    const query = `*[_type == "bookReview"] | order(publishedDate desc) {
+      _id,
+      bookTitle,
+      authorOfBook,
+      bookCover,
+      rating,
+      shortSummary,
+      publishedDate,
+      genre
+    }`;
+    return await client.fetch(query);
+  } catch (error) {
+    console.error("Failed to fetch book reviews from Sanity.", error);
+    return [];
+  }
+}
+
+export async function getSiteSettings() {
+  try {
+    const query = `*[_type == "siteSettings"][0] {
+      siteName,
+      tagline,
+      logo,
+      homepageHero,
+      footerText,
+      socialLinks,
+      newsletterSettings
+    }`;
+    return await client.fetch(query);
+  } catch (error) {
+    console.error("Failed to fetch site settings from Sanity.", error);
+    return null;
+  }
+}
+
+export async function getAuthorProfile(): Promise<unknown> {
+  try {
+    const query = `*[_type == "author"][0] {
+      name,
+      position,
+      university,
+      department,
+      photo,
+      bio,
       email,
-    }
-  );
-
-  return response;
+      website,
+      officeHours,
+      education[] {
+        year,
+        title,
+        institution,
+        description
+      },
+      awards[] {
+        year,
+        title,
+        institution,
+        description
+      }
+    }`;
+    return await client.fetch(query);
+  } catch (error) {
+    console.error("Failed to fetch author profile from Sanity.", error);
+    return null;
+  }
 }
 
-export async function getPostBySlug(slug: string) {
-  const query = gql`
-    query getPostBySlug($host: String!, $slug: String!) {
-      publication(host: $host) {
-        post(slug: $slug) {
-          title
-          subtitle
-          coverImage {
-            url
-          }
-          content {
-            html
-          }
-          author {
-            name
-            profilePicture
-          }
-        }
-      }
-    }
-  `;
-
-  const response = await request<GetPostBySlugResponse>(endpoint, query, {
-    host,
-    slug,
-  });
-
-  return response.publication.post;
+export async function subscribeToNewsletter(email: string): Promise<unknown> {
+  console.log("Newsletter subscription request for:", email);
+  // Simulating successful registration
+  return { status: "success" };
 }

@@ -1,111 +1,132 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import { Button } from "@/components/ui/button";
-import { ChevronDown } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import { getAuthorProfile } from "@/lib/request";
+import { urlFor } from "@/lib/sanity";
+import { PortableText } from "@portabletext/react";
+import { Mail, ExternalLink } from "lucide-react";
 
 export default function WhoIAm() {
-  const [openQuestion, setOpenQuestion] = useState<number | null>(null);
+  const { data: authorRaw } = useQuery({
+    queryKey: ["authorProfile"],
+    queryFn: getAuthorProfile,
+  });
 
-  const toggleQuestion = (index: number) => {
-    setOpenQuestion(openQuestion === index ? null : index);
-  };
+  const author = authorRaw as {
+    name?: string;
+    position?: string;
+    university?: string;
+    email?: string;
+    website?: string;
+    officeHours?: string;
+    photo?: unknown;
+    bio?: unknown;
+  } | null;
 
-  const faqData = [
-    {
-      question: "What areas of law do you specialize in?",
-      answer:
-        "As a law scholar and High Court intern, I have experience in various areas of Indian law, including constitutional law, civil law, and criminal law. However, my blog covers a wide range of legal topics to help people understand their rights and navigate the Indian legal system.",
-    },
-    {
-      question: "How can your blog help me understand my legal rights?",
-      answer:
-        "My blog aims to break down complex legal concepts into easily understandable content. I share insights from my studies and internship experiences, provide explanations of common legal procedures, and offer guidance on how to approach various legal situations. Remember, while my blog provides general information, it is always best to consult with a qualified lawyer for specific legal advice.",
-    },
-    {
-      question: "Do you offer legal consultations or services?",
-      answer:
-        "As a law scholar and intern, I am not yet qualified to offer legal services or consultations. My blog is for informational purposes only. If you need legal assistance, I recommend contacting a licensed attorney or seeking help from legal aid organizations.",
-    },
-    {
-      question: "How does your artistic side influence your legal work?",
-      answer:
-        "My passion for mandala art and creativity helps me approach legal problems from unique perspectives. It enhances my ability to see patterns and connections in complex legal issues, which is invaluable in legal research and analysis. Additionally, it helps me present legal information in more visually appealing and understandable ways on my blog.",
-    },
-  ];
+  if (!author) return null;
+
+  // Resolve author photo
+  let photoUrl = "";
+  if (author?.photo) {
+    try {
+      photoUrl = urlFor(author.photo).width(500).height(600).url();
+    } catch {
+      // ignore
+    }
+  }
+
+  const name = author.name || "Mandvi Tripathi";
+  const position = author.position || "";
+  const university = author.university || "";
+  const contactEmail = author.email || "";
 
   return (
-    <div id="About" className="min-h-screen bg-[#0c1015] text-white p-8">
-      <section className="mb-16">
-        <h2 className="text-2xl font-bold mb-4">Know who am I</h2>
-        <div className="flex flex-col md:flex-row gap-8">
-          <div className="flex-1">
-            <p className="text-gray-400 mb-4">
-              Greetings! I am Mandvi Tripathi, a dedicated law scholar with a
-              passion for demystifying the Indian legal system. Committed to
-              justice and empowering individuals with legal knowledge, I aim to
-              make the law accessible to everyone through my experiences and
-              insights. Beyond the legal world, I am an avid reader, writer, and
-              mandala artist, bringing creativity and unique perspectives to
-              everything I do.
-            </p>
-            <p className="text-gray-400">
-              Join me on this journey as we explore the intersection of law,
-              art, and everyday life!
-            </p>
-            {/* <Button variant="outline" className="mt-4 bg-black">
-              View More
-            </Button> */}
+    <section id="about" className="py-24 px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
+        {/* Section Header */}
+        <div className="mb-16">
+          <div className="inline-flex items-center space-x-2 mb-4">
+            <span className="h-px w-8 bg-foreground/20"></span>
+            <span className="text-xs uppercase tracking-widest text-muted-foreground font-medium">
+              About
+            </span>
           </div>
-          <div className="flex-1 flex justify-end">
-            <div className="relative">
-              <img
-                src="/photoShoot.jpg"
-                alt="Designer"
-                className="w-60 h-auto transform rotate-3 border-4 border-white "
-              />
+          <h2 className="text-4xl sm:text-5xl font-bold tracking-tight">
+            {name}
+          </h2>
+          {(position || university) && (
+            <p className="text-lg text-muted-foreground mt-2">
+              {position}
+              {position && university && " · "}
+              {university}
+            </p>
+          )}
+        </div>
+
+        {/* Content Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+          {/* Bio Content */}
+          <div className="lg:col-span-2">
+            <div className="prose prose-lg max-w-none">
+              {author.bio ? (
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                <PortableText value={author.bio as any} />
+              ) : (
+                <p className="text-muted-foreground">
+                  Biography content coming soon.
+                </p>
+              )}
+            </div>
+
+            {author.officeHours && (
+              <div className="mt-8 p-6 border border-border rounded-sm">
+                <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-2">
+                  Office Hours
+                </h3>
+                <p className="text-foreground">{author.officeHours}</p>
+              </div>
+            )}
+
+            {/* Contact Buttons */}
+            <div className="flex flex-wrap gap-3 mt-8">
+              {contactEmail && (
+                <Button variant="default" asChild>
+                  <a href={`mailto:${contactEmail}`}>
+                    <Mail className="w-4 h-4 mr-2" />
+                    Get in Touch
+                  </a>
+                </Button>
+              )}
+              {author.website && (
+                <Button variant="outline" asChild>
+                  <a
+                    href={author.website}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <ExternalLink className="w-4 h-4 mr-2" />
+                    Visit Website
+                  </a>
+                </Button>
+              )}
             </div>
           </div>
-        </div>
-      </section>
 
-      <section>
-        <h2 className="text-3xl font-bold mb-8">Frequently Asked Questions</h2>
-        <p className="text-gray-400 mb-8">Your answers could be right here.</p>
-        <div className="flex flex-col md:flex-row gap-8">
-          <div className="flex-1">
-            <img
-              src="/V0176_generated.jpg"
-              alt="FAQ"
-              className="w-full h-auto rounded-lg"
-            />
-            <Button variant="outline" className="mt-4 bg-black">
-              <a href="mailto:lawgicalinsights@gmail.com">Connect with me</a>
-            </Button>
-          </div>
-          <div id="FAQ" className="flex-1">
-            {faqData.map((faq, index) => (
-              <div key={index} className="mb-4">
-                <button
-                  className="flex justify-between items-center w-full text-left p-4 bg-[#1c2028] rounded-lg"
-                  onClick={() => toggleQuestion(index)}
-                >
-                  <span>{faq.question}</span>
-                  <ChevronDown
-                    className={`transform transition-transform ${
-                      openQuestion === index ? "rotate-180" : ""
-                    }`}
-                  />
-                </button>
-                {openQuestion === index && (
-                  <div className="p-4 bg-[#1c2028] mt-2 rounded-lg">
-                    <p className="text-gray-400">{faq.answer}</p>
-                  </div>
-                )}
+          {/* Photo */}
+          {photoUrl && (
+            <div className="lg:col-span-1">
+              <div className="sticky top-24">
+                <img
+                  src={photoUrl}
+                  alt={name}
+                  className="w-full aspect-[3/4] object-cover rounded-sm"
+                />
               </div>
-            ))}
-          </div>
+            </div>
+          )}
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
   );
 }

@@ -1,51 +1,95 @@
 import React from "react";
-import { Button } from "@/components/ui/button";
-import { MessageSquare, ArrowRight } from "lucide-react";
+import Link from "next/link";
+import { getPosts } from "@/lib/request";
+import { urlFor } from "@/lib/sanity";
 
-export default function Hero() {
+export default async function Hero() {
+  const posts = await getPosts();
+  const latestPost = posts[0]; // Get the most recent article
+
+  if (!latestPost) {
+    return null;
+  }
+
+  // Resolve image url
+  let imageUrl = "/placeholder.svg";
+  if (latestPost.featuredImage) {
+    try {
+      imageUrl = urlFor(latestPost.featuredImage).width(1400).height(900).url();
+    } catch {
+      const img = latestPost.featuredImage as { url?: string };
+      if (img && img.url) imageUrl = img.url;
+    }
+  }
+
+  const category =
+    latestPost.categories && latestPost.categories.length > 0
+      ? latestPost.categories[0].title.toUpperCase()
+      : "Latest";
+
+  const publishDate = latestPost.publishedDate
+    ? new Date(latestPost.publishedDate).toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+      })
+    : "Recent";
+
+  const readingTime = latestPost.readingTime || "5 min";
+
   return (
-    <div className="min-h-screen bg-[#0c1015] text-white flex flex-col justify-between md:p-6 p-2  relative overflow-hidden ">
-      <main className="flex-grow flex flex-col items-center justify-center text-center relative z-10 -mt-28 ">
-        {/* Decorative elements */}
-        <div className="absolute top-0 left-1/4 w-2 h-2 bg-green-400 rounded-full"></div>
-        <div className="absolute top-1/4 right-1/4 w-1 h-1 bg-white rounded-full"></div>
-        <div className="absolute bottom-1/4 left-1/3 w-1 h-1 bg-gray-500 rounded-full"></div>
-        <div className="absolute bottom-0 right-1/3 w-3 h-3 bg-green-400 rounded-full filter blur-sm"></div>
+    <section className="section-spacing">
+      <div className="container-fixed">
+        {/* Latest Article Hero */}
+        <Link href={`/${latestPost.slug}`} className="group block">
+          <article>
+            {/* Category Label */}
+            <div className="mb-8">
+              <span className="pill-badge">{category}</span>
+            </div>
 
-        <div className="bg-[#475672] text-green-400 text-xs font-medium px-3 py-1 rounded-full mb-6">
-          Available for opportunities
-        </div>
+            {/* Hero Title */}
+            <h1 className="text-hero font-black uppercase mb-12 group-hover:opacity-70 transition-opacity">
+              {latestPost.title}
+            </h1>
 
-        <h1 className="md:text-7xl text-5xl font-bold mb-4">
-          Welcome to
-          <br />
-          my digital humble abode
-        </h1>
+            {/* Meta Row */}
+            <div className="flex flex-wrap items-center gap-6 mb-12">
+              <div className="flex items-center gap-2">
+                <span className="meta-label">By</span>
+                <span className="meta-value">
+                  {latestPost.author?.name || "Mandvi Tripathi"}
+                </span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="meta-label">Date</span>
+                <span className="meta-value">{publishDate}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="meta-label">Read</span>
+                <span className="meta-value">{readingTime}</span>
+              </div>
+            </div>
 
-        <p className="text-gray-400 mb-8">
-          I am a dedicated law student and an avid book enthusiast. <br />
-          My passions lie at the intersection of legal research, literature, and
-          a deep love for knowledge.
-        </p>
+            {/* Excerpt */}
+            {latestPost.excerpt && (
+              <p className="text-lg md:text-xl leading-[1.6] max-w-[800px] mb-12">
+                {latestPost.excerpt}
+              </p>
+            )}
 
-        <div className="flex space-x-4">
-          <Button
-            variant="outline"
-            className="bg-white text-black hover:bg-gray-200"
-          >
-            <MessageSquare className="w-4 h-4 mr-2" />
-
-            <a href="mailto:lawgicalinsights@gmail.com">Connect with me</a>
-          </Button>
-          <Button
-            variant="ghost"
-            className="text-white hover:text-green-400 hover:bg-transparent"
-          >
-            <a href="#Blogs">Explore my bookshelf </a>
-            <ArrowRight className="w-4 h-4 ml-2" />
-          </Button>
-        </div>
-      </main>
-    </div>
+            {/* Hero Image */}
+            <div className="relative aspect-[16/9] overflow-hidden bg-muted">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={imageUrl}
+                alt={latestPost.title}
+                className="w-full h-full object-cover img-grayscale group-hover:scale-105 transition-transform duration-700"
+              />
+            </div>
+          </article>
+        </Link>
+      </div>
+    </section>
   );
 }
