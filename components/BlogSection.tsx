@@ -133,7 +133,7 @@ export function BlogCard({ post }: BlogCardProps) {
           <img
             src={imageUrl}
             alt={post.title}
-            className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105 img-grayscale"
+            className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105 "
           />
         </div>
 

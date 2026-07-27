@@ -166,7 +166,7 @@
 
   .blog-content img {
     @apply my-12 w-full;
-    filter: grayscale(100%);
+    
   }
 
   .blog-content hr {

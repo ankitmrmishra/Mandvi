@@ -19,18 +19,18 @@ const portableTextComponents = {
   types: {
     customImage: ({ value }: any) => {
       if (!value?.asset) return null;
-      const imageUrl = urlFor(value).width(1400).url();
+      const imageUrl = urlFor(value).width(800).url();
 
       return (
-        <figure className="my-12 -mx-4 md:-mx-16 lg:-mx-20">
+        <figure className="my-8 md:my-12">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={imageUrl}
             alt={value.alt || ""}
-            className="w-full object-cover img-grayscale"
+            className="w-full max-w-2xl object-contain"
           />
           {value.caption && (
-            <figcaption className="text-center text-xs text-muted-foreground mt-4 px-4">
+            <figcaption className="text-center text-xs text-muted-foreground mt-3 md:mt-4">
               {value.caption}
             </figcaption>
           )}
@@ -199,6 +199,14 @@ export default function Post({ slug }: Props) {
       ? data.categories[0].title.toUpperCase()
       : "ARTICLE";
 
+  // Generate share URLs
+  const baseUrl = typeof window !== 'undefined' 
+    ? window.location.origin 
+    : process.env.NEXT_PUBLIC_SITE_URL || 'https://mandvi.vercel.app';
+  const articleUrl = `${baseUrl}/${slug}`;
+  const twitterShareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(`${data.title} by Mandvi Tripathi`)}&url=${encodeURIComponent(articleUrl)}`;
+  const linkedinShareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(articleUrl)}`;
+
   return (
     <div className="min-h-screen pt-0 bg-background">
       {/* Header Section */}
@@ -259,7 +267,7 @@ export default function Post({ slug }: Props) {
           <img
             src={coverImageUrl}
             alt={data.title}
-            className="w-full object-cover img-grayscale"
+            className="w-full object-cover "
           />
         </div>
       )}
@@ -292,7 +300,7 @@ export default function Post({ slug }: Props) {
                 <img
                   src={authorPhotoUrl}
                   alt={data.author?.name || "Author"}
-                  className="w-14 h-14 md:w-16 md:h-16 rounded-full object-cover img-grayscale flex-shrink-0"
+                  className="w-14 h-14 md:w-16 md:h-16 rounded-full object-cover  flex-shrink-0"
                 />
               ) : (
                 <div className="w-14 h-14 md:w-16 md:h-16 rounded-full bg-black text-white flex items-center justify-center font-black uppercase text-lg md:text-xl flex-shrink-0">
@@ -323,7 +331,12 @@ export default function Post({ slug }: Props) {
             <div>
               <p className="meta-label mb-2 text-[10px] md:text-xs">Share</p>
               <div className="flex items-center gap-3">
-                <a href="#" className="hover:opacity-70 transition-opacity">
+                <a 
+                  href={twitterShareUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:opacity-70 transition-opacity"
+                >
                   <svg
                     className="w-4 h-4"
                     fill="none"
@@ -334,7 +347,12 @@ export default function Post({ slug }: Props) {
                     <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z" />
                   </svg>
                 </a>
-                <a href="#" className="hover:opacity-70 transition-opacity">
+                <a 
+                  href={linkedinShareUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:opacity-70 transition-opacity"
+                >
                   <svg
                     className="w-4 h-4"
                     fill="none"
@@ -403,7 +421,7 @@ export default function Post({ slug }: Props) {
                   <img
                     src={authorPhotoUrl}
                     alt={data.author?.name || "Author"}
-                    className="w-20 h-20 rounded-full object-cover img-grayscale"
+                    className="w-20 h-20 rounded-full object-cover "
                   />
                 ) : (
                   <div className="w-20 h-20 rounded-full bg-black text-white flex items-center justify-center font-black uppercase text-2xl">
@@ -435,7 +453,12 @@ export default function Post({ slug }: Props) {
                 <div>
                   <p className="meta-label mb-2">Share</p>
                   <div className="flex items-center gap-3">
-                    <a href="#" className="hover:opacity-70 transition-opacity">
+                    <a 
+                      href={twitterShareUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:opacity-70 transition-opacity"
+                    >
                       <svg
                         className="w-4 h-4"
                         fill="none"
@@ -446,7 +469,12 @@ export default function Post({ slug }: Props) {
                         <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z" />
                       </svg>
                     </a>
-                    <a href="#" className="hover:opacity-70 transition-opacity">
+                    <a 
+                      href={linkedinShareUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:opacity-70 transition-opacity"
+                    >
                       <svg
                         className="w-4 h-4"
                         fill="none"
