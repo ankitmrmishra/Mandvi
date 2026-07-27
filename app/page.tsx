@@ -1,8 +1,7 @@
 import React from "react";
 import Hero from "@/components/Hero";
 import BlogSection from "@/components/BlogSection";
-import Categories from "@/components/Categories";
-import Features from "@/components/Features";
+
 import WhoIAm from "@/components/WhoIAm";
 import Newsletter from "@/components/Newsletter";
 import Footer from "@/components/Footer";

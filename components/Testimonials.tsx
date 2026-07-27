@@ -70,7 +70,7 @@ function TestimonialCard({ quote, author, role }: TestimonialCardProps) {
     <div className="flex flex-col h-full">
       {/* Quote */}
       <blockquote className="text-lg leading-relaxed mb-6 flex-grow">
-        "{quote}"
+        &ldquo;{quote}&rdquo;
       </blockquote>
 
       {/* Attribution */}

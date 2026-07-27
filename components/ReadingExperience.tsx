@@ -1,6 +1,5 @@
 import React from "react";
-import { Moon, Sun, Type, Bookmark, Share2, Clock } from "lucide-react";
-import Image from "next/image";
+import { Moon, Type, Bookmark, Share2, Clock } from "lucide-react";
 
 /**
  * Reading Experience Showcase
