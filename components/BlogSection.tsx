@@ -18,7 +18,7 @@ export default function BlogSection() {
         <div className="container-fixed">
           <div className="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
             <h2
-              className="text-4xl md:text-5xl lg:text-6xl font-black uppercase"
+              className="text-4xl md:text-5xl lg:text-6xl font-black capitalize"
               style={{ letterSpacing: "-0.03em" }}
             >
               LATEST WRITING
@@ -26,7 +26,7 @@ export default function BlogSection() {
             {posts && posts.length > 4 && (
               <Link
                 href="/archive"
-                className="inline-flex items-center gap-2 text-sm font-black uppercase tracking-[0.2em] hover:opacity-70 transition-opacity"
+                className="inline-flex items-center gap-2 text-sm font-black capitalize tracking-[0.2em] hover:opacity-70 transition-opacity"
               >
                 Read more <span aria-hidden="true">→</span>
               </Link>
@@ -49,7 +49,7 @@ export default function BlogSection() {
             <div className="mt-12 text-center">
               <Link
                 href="/archive"
-                className="inline-block px-8 py-4 border border-black font-black uppercase text-sm hover:bg-black hover:text-white transition-colors"
+                className="inline-block px-8 py-4 border border-black font-black capitalize text-sm hover:bg-black hover:text-white transition-colors"
                 style={{ letterSpacing: "0.1em" }}
               >
                 Read all articles
@@ -118,7 +118,7 @@ export function BlogCard({ post }: BlogCardProps) {
 
         {/* Title */}
         <h3
-          className="text-xl md:text-2xl font-black uppercase mb-4 group-hover:opacity-70 transition-opacity leading-tight"
+          className="text-xl md:text-2xl font-black capitalize mb-4 group-hover:opacity-70 transition-opacity leading-tight"
           style={{ letterSpacing: "-0.03em" }}
         >
           {post.title}

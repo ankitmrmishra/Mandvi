@@ -38,14 +38,14 @@ export default async function ArchivePage({
         <div className="container-fixed">
           <div className="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
             <div>
-              <p className="text-xs font-black uppercase tracking-[0.3em] mb-3">Archive</p>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-black uppercase" style={{ letterSpacing: "-0.03em" }}>
+              <p className="text-xs font-black capitalize tracking-[0.3em] mb-3">Archive</p>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-black capitalize" style={{ letterSpacing: "-0.03em" }}>
                 All articles
               </h1>
             </div>
             <Link
               href="/"
-              className="inline-flex items-center gap-2 text-sm font-black uppercase tracking-[0.2em] hover:opacity-70 transition-opacity"
+              className="inline-flex items-center gap-2 text-sm font-black capitalize tracking-[0.2em] hover:opacity-70 transition-opacity"
             >
               Back home <span aria-hidden="true">←</span>
             </Link>
@@ -76,7 +76,7 @@ export default async function ArchivePage({
                     <span className="pill-badge text-[10px]">{getCategoryLabel(post)}</span>
                   </div>
 
-                  <h2 className="text-xl md:text-2xl font-black uppercase leading-tight mb-4 group-hover:opacity-70 transition-opacity" style={{ letterSpacing: "-0.03em" }}>
+                  <h2 className="text-xl md:text-2xl font-black capitalize leading-tight mb-4 group-hover:opacity-70 transition-opacity" style={{ letterSpacing: "-0.03em" }}>
                     {post.title}
                   </h2>
 
@@ -93,7 +93,7 @@ export default async function ArchivePage({
                     </div>
                   </div>
 
-                  <Link href={`/${post.slug}`} className="mt-6 inline-flex items-center gap-2 text-sm font-black uppercase tracking-[0.2em] hover:opacity-70 transition-opacity">
+                  <Link href={`/${post.slug}`} className="mt-6 inline-flex items-center gap-2 text-sm font-black capitalize tracking-[0.2em] hover:opacity-70 transition-opacity">
                     Read article <span aria-hidden="true">→</span>
                   </Link>
                 </article>
@@ -110,7 +110,7 @@ export default async function ArchivePage({
                   <Link
                     key={pageNumber}
                     href={{ pathname: "/archive", query: pageNumber === 1 ? {} : { page: pageNumber } }}
-                    className={`flex h-10 w-10 items-center justify-center border text-sm font-black uppercase transition-colors ${isActive ? "border-foreground bg-foreground text-background" : "border-border/70 bg-background text-foreground hover:border-foreground/40"}`}
+                    className={`flex h-10 w-10 items-center justify-center border text-sm font-black capitalize transition-colors ${isActive ? "border-foreground bg-foreground text-background" : "border-border/70 bg-background text-foreground hover:border-foreground/40"}`}
                   >
                     {pageNumber}
                   </Link>

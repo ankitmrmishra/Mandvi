@@ -48,7 +48,7 @@ export default function WhoIAm() {
         <div className="mb-16">
           <div className="inline-flex items-center space-x-2 mb-4">
             <span className="h-px w-8 bg-foreground/20"></span>
-            <span className="text-xs uppercase tracking-widest text-muted-foreground font-medium">
+            <span className="text-xs capitalize tracking-widest text-muted-foreground font-medium">
               About
             </span>
           </div>
@@ -81,7 +81,7 @@ export default function WhoIAm() {
 
             {author.officeHours && (
               <div className="mt-8 p-6 border border-border rounded-sm">
-                <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-2">
+                <h3 className="text-sm font-semibold capitalize tracking-wider text-muted-foreground mb-2">
                   Office Hours
                 </h3>
                 <p className="text-foreground">{author.officeHours}</p>

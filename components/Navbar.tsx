@@ -12,10 +12,10 @@ const Navbar = () => {
             {/* Logo */}
             <Link
               href="/"
-              className="font-black uppercase text-sm hover:opacity-70 transition-opacity"
+              className="font-black capitalize text-sm hover:opacity-70 transition-opacity"
               style={{ letterSpacing: "0.1em" }}
             >
-              MANDVI TRIPATHI
+              MANDVI
             </Link>
 
             {/* Right Side: Nav Links + Divider + Social Icons + Theme Switcher */}
@@ -24,25 +24,25 @@ const Navbar = () => {
               <div className="hidden md:flex items-center gap-8">
                 <Link
                   href="/#articles"
-                  className="text-xs uppercase font-bold hover:opacity-70 transition-opacity"
+                  className="text-xs capitalize font-bold hover:opacity-70 transition-opacity"
                   style={{ letterSpacing: "0.1em" }}
                 >
                   Essays
                 </Link>
                 <Link
                   href="/#about"
-                  className="text-xs uppercase font-bold hover:opacity-70 transition-opacity"
+                  className="text-xs capitalize font-bold hover:opacity-70 transition-opacity"
                   style={{ letterSpacing: "0.1em" }}
                 >
                   About
                 </Link>
-                <Link
+                {/* <Link
                   href="/#newsletter"
-                  className="text-xs uppercase font-bold hover:opacity-70 transition-opacity"
+                  className="text-xs capitalize font-bold hover:opacity-70 transition-opacity"
                   style={{ letterSpacing: "0.1em" }}
                 >
                   Newsletter
-                </Link>
+                </Link> */}
               </div>
 
               {/* Vertical Divider */}

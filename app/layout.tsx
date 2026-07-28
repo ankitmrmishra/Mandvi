@@ -3,19 +3,14 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Providers from "@/components/Providers";
 import Navbar from "@/components/Navbar";
-import { Inter, Newsreader } from "next/font/google";
+import { Merriweather } from "next/font/google";
 import { cn } from "@/lib/utils";
 
 // Premium Typography System
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-sans",
-  display: "swap",
-});
-
-const newsreader = Newsreader({
-  subsets: ["latin"],
+const merriweather = Merriweather({
+  subsets: ["latin", "latin-ext", "cyrillic", "cyrillic-ext", "vietnamese"],
   variable: "--font-heading",
+  weight: ["300", "400", "700", "900"],
   display: "swap",
 });
 
@@ -89,12 +84,12 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={cn(inter.variable, newsreader.variable)}
+      className={cn(merriweather.variable)}
       suppressHydrationWarning
     >
       <body
         className={cn(
-          "font-sans antialiased",
+          "antialiased dark",
           geistSans.variable,
           geistMono.variable,
         )}

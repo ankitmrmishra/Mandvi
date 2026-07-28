@@ -58,7 +58,7 @@ export default function Categories() {
         <div className="mb-16">
           <div className="inline-flex items-center space-x-2 mb-4">
             <span className="h-px w-8 bg-foreground/20"></span>
-            <span className="text-xs uppercase tracking-widest text-muted-foreground font-medium">
+            <span className="text-xs capitalize tracking-widest text-muted-foreground font-medium">
               Explore Topics
             </span>
           </div>

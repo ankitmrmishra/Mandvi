@@ -234,7 +234,7 @@ Article Card:
 ```tsx
 Pattern:
 - Decorative line (8px width, 1px height)
-- Uppercase label (xs, tracking-widest)
+- capitalize label (xs, tracking-widest)
 - Large heading (4xl-5xl)
 - Muted description (lg)
 ```

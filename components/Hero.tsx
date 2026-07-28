@@ -49,7 +49,7 @@ export default async function Hero() {
             </div>
 
             {/* Hero Title */}
-            <h1 className="text-hero font-black uppercase mb-12 group-hover:opacity-70 transition-opacity">
+            <h1 className="text-hero font-black capitalize mb-12 group-hover:opacity-70 transition-opacity">
               {latestPost.title}
             </h1>
 

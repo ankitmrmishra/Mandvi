@@ -8,7 +8,7 @@ export default function FeaturedCaseStudies() {
       className="min-h-screen bg-[#0c1015] text-white py-16 px-4 sm:px-6 lg:px-8"
     >
       <div className="max-w-7xl mx-auto">
-        <p className="text-[#4d9e71] text-sm font-medium tracking-widest mb-4 uppercase">
+        <p className="text-[#4d9e71] text-sm font-medium tracking-widest mb-4 capitalize">
           Curated Work
         </p>
         <h2 className="text-4xl sm:text-5xl font-bold mb-4">

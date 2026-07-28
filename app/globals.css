@@ -6,28 +6,36 @@
 
 @layer base {
   :root {
-    /* Strict Monochrome Design System */
-    --background: 0 0% 100%;
-    --foreground: 0 0% 0%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 0%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 0%;
-    --primary: 0 0% 0%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 0 0% 0%;
-    --secondary-foreground: 0 0% 100%;
-    --muted: 0 0% 96%;
-    --muted-foreground: 0 0% 45%;
-    --accent: 0 0% 0%;
-    --accent-foreground: 0 0% 100%;
-    --destructive: 0 0% 0%;
-    --destructive-foreground: 0 0% 100%;
-    --border: 0 0% 0%;
-    --input: 0 0% 0%;
-    --ring: 0 0% 0%;
-    --radius: 0rem;
-  }
+  --background: 215 33% 98%;      /* #F8FAFC */
+  --foreground: 220 47% 12%;      /* #162033 */
+
+  --card: 0 0% 100%;
+  --card-foreground: 220 47% 12%;
+
+  --popover: 0 0% 100%;
+  --popover-foreground: 220 47% 12%;
+
+  --primary: 216 65% 11%;         /* Same navy */
+  --primary-foreground: 0 0% 100%;
+
+  --secondary: 215 25% 94%;
+  --secondary-foreground: 220 40% 18%;
+
+  --muted: 215 24% 95%;
+  --muted-foreground: 220 12% 45%;
+
+  --accent: 220 80% 55%;
+  --accent-foreground: 0 0% 100%;
+
+  --destructive: 0 72% 50%;
+  --destructive-foreground: 0 0% 100%;
+
+  --border: 215 22% 88%;
+  --input: 215 22% 88%;
+  --ring: 220 80% 55%;
+
+  --radius: 0.75rem;
+}
 
   /* Smooth theme transitions */
   html {
@@ -38,26 +46,34 @@
   }
 
   .dark {
-    --background: 0 0% 0%;
-    --foreground: 0 0% 100%;
-    --card: 0 0% 0%;
-    --card-foreground: 0 0% 100%;
-    --popover: 0 0% 0%;
-    --popover-foreground: 0 0% 100%;
-    --primary: 0 0% 100%;
-    --primary-foreground: 0 0% 0%;
-    --secondary: 0 0% 100%;
-    --secondary-foreground: 0 0% 0%;
-    --muted: 0 0% 10%;
-    --muted-foreground: 0 0% 55%;
-    --accent: 0 0% 100%;
-    --accent-foreground: 0 0% 0%;
-    --destructive: 0 0% 100%;
-    --destructive-foreground: 0 0% 0%;
-    --border: 0 0% 100%;
-    --input: 0 0% 100%;
-    --ring: 0 0% 100%;
-  }
+  --background: 216 65% 11%;      /* #0A1930 */
+  --foreground: 220 43% 84%;      /* #C1CEE9 */
+
+  --card: 216 58% 13%;            /* slightly lighter */
+  --card-foreground: 220 43% 84%;
+
+  --popover: 216 58% 13%;
+  --popover-foreground: 220 43% 84%;
+
+  --primary: 220 43% 84%;
+  --primary-foreground: 216 65% 11%;
+
+  --secondary: 216 32% 18%;
+  --secondary-foreground: 220 35% 80%;
+
+  --muted: 216 28% 18%;
+  --muted-foreground: 220 18% 65%;
+
+  --accent: 220 80% 65%;
+  --accent-foreground: 216 65% 11%;
+
+  --destructive: 0 70% 60%;
+  --destructive-foreground: 216 65% 11%;
+
+  --border: 217 37% 22%;
+  --input: 217 37% 22%;
+  --ring: 220 80% 65%;
+}
 
   * {
     @apply border-border;
@@ -75,9 +91,10 @@
   }
 
   html {
-    @apply font-sans scroll-smooth;
+    @apply scroll-smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    font-family: var(--font-heading), Georgia, serif;
   }
 
   /* Heavy Condensed Grotesk Sans for Display/Headings */
@@ -87,7 +104,8 @@
   h4,
   h5,
   h6 {
-    @apply font-black uppercase;
+    @apply font-black capitalize;
+    font-family: var(--font-heading), Georgia, serif;
     letter-spacing: -0.03em;
     line-height: 0.95;
     font-weight: 900;
@@ -98,11 +116,12 @@
     font-size: 16px;
     line-height: 1.6;
     max-width: 600px;
+    font-family: var(--font-heading), Georgia, serif;
   }
 
-  /* Nav/Labels/Meta: Small Caps, Uppercase, Letter-spaced */
+  /* Nav/Labels/Meta: Small Caps, capitalize, Letter-spaced */
   .label-text {
-    @apply uppercase font-bold;
+    @apply capitalize font-bold;
     font-size: 12px;
     letter-spacing: 0.1em;
   }
@@ -115,25 +134,25 @@
   }
 
   .blog-content h1 {
-    @apply text-4xl lg:text-5xl font-black uppercase mb-8 mt-12 first:mt-0;
+    @apply text-4xl lg:text-5xl font-black capitalize mb-8 mt-12 first:mt-0;
     letter-spacing: -0.03em;
     line-height: 0.95;
   }
 
   .blog-content h2 {
-    @apply text-3xl lg:text-4xl font-black uppercase mb-6 mt-10;
+    @apply text-3xl lg:text-4xl font-black capitalize mb-6 mt-10;
     letter-spacing: -0.03em;
     line-height: 0.95;
   }
 
   .blog-content h3 {
-    @apply text-2xl lg:text-3xl font-black uppercase mb-5 mt-8;
+    @apply text-2xl lg:text-3xl font-black capitalize mb-5 mt-8;
     letter-spacing: -0.03em;
     line-height: 0.95;
   }
 
   .blog-content h4 {
-    @apply text-xl lg:text-2xl font-black uppercase mb-4 mt-6;
+    @apply text-xl lg:text-2xl font-black capitalize mb-4 mt-6;
     letter-spacing: -0.03em;
     line-height: 0.95;
   }
@@ -191,13 +210,13 @@
 
   /* Pill Badge */
   .pill-badge {
-    @apply inline-flex items-center px-3 py-1 rounded-full border border-foreground/20 bg-background/70 text-xs uppercase font-bold;
+    @apply inline-flex items-center px-3 py-1 rounded-full border border-foreground/20 bg-background/70 text-xs capitalize font-bold;
     letter-spacing: 0.1em;
   }
 
   /* Meta Label Pattern */
   .meta-label {
-    @apply uppercase font-bold text-xs;
+    @apply capitalize font-bold text-xs;
     letter-spacing: 0.1em;
   }
 
@@ -213,7 +232,7 @@
 
   /* Back Link Pattern */
   .back-link {
-    @apply uppercase font-bold text-xs inline-flex items-center gap-2 hover:opacity-70 transition-opacity;
+    @apply capitalize font-bold text-xs inline-flex items-center gap-2 hover:opacity-70 transition-opacity;
     letter-spacing: 0.1em;
   }
 }

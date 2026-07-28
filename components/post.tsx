@@ -41,14 +41,14 @@ const portableTextComponents = {
       return (
         <blockquote className="my-12 md:my-16 py-6 md:py-8">
           <p
-            className="text-2xl md:text-4xl lg:text-5xl font-black uppercase leading-[0.95]"
+            className="text-2xl md:text-4xl lg:text-5xl font-black capitalize leading-[0.95]"
             style={{ letterSpacing: "-0.03em" }}
           >
             &ldquo;{value.text}&rdquo;
           </p>
           {value.attribution && (
             <cite
-              className="block mt-4 md:mt-6 text-xs uppercase font-bold not-italic"
+              className="block mt-4 md:mt-6 text-xs capitalize font-bold not-italic"
               style={{ letterSpacing: "0.1em" }}
             >
               — {value.attribution}
@@ -61,7 +61,7 @@ const portableTextComponents = {
   block: {
     h1: ({ children }: any) => (
       <h1
-        className="text-2xl md:text-3xl lg:text-4xl font-black uppercase mb-6 mt-10 first:mt-0 leading-[0.95]"
+        className="text-2xl md:text-3xl lg:text-4xl font-black capitalize mb-6 mt-10 first:mt-0 leading-[0.95]"
         style={{ letterSpacing: "-0.03em" }}
       >
         {children}
@@ -69,7 +69,7 @@ const portableTextComponents = {
     ),
     h2: ({ children }: any) => (
       <h2
-        className="text-xl md:text-2xl lg:text-3xl font-black uppercase mb-5 mt-8 leading-[0.95]"
+        className="text-xl md:text-2xl lg:text-3xl font-black capitalize mb-5 mt-8 leading-[0.95]"
         style={{ letterSpacing: "-0.03em" }}
       >
         {children}
@@ -77,7 +77,7 @@ const portableTextComponents = {
     ),
     h3: ({ children }: any) => (
       <h3
-        className="text-lg md:text-xl lg:text-2xl font-black uppercase mb-4 mt-6 leading-[0.95]"
+        className="text-lg md:text-xl lg:text-2xl font-black capitalize mb-4 mt-6 leading-[0.95]"
         style={{ letterSpacing: "-0.03em" }}
       >
         {children}
@@ -85,7 +85,7 @@ const portableTextComponents = {
     ),
     h4: ({ children }: any) => (
       <h4
-        className="text-base md:text-lg lg:text-xl font-black uppercase mb-3 mt-6 leading-[0.95]"
+        className="text-base md:text-lg lg:text-xl font-black capitalize mb-3 mt-6 leading-[0.95]"
         style={{ letterSpacing: "-0.03em" }}
       >
         {children}
@@ -98,7 +98,7 @@ const portableTextComponents = {
     ),
     blockquote: ({ children }: any) => (
       <blockquote
-        className="my-12 md:my-16 py-6 md:py-8 text-2xl md:text-4xl lg:text-5xl font-black uppercase leading-[0.95]"
+        className="my-12 md:my-16 py-6 md:py-8 text-2xl md:text-4xl lg:text-5xl font-black capitalize leading-[0.95]"
         style={{ letterSpacing: "-0.03em" }}
       >
         {children}
@@ -225,7 +225,7 @@ export default function Post({ slug }: Props) {
         {/* Title */}
         <div className="mb-6 md:mb-8">
           <h1
-            className="text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-black uppercase leading-[0.95] mb-0"
+            className="text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-black capitalize leading-[0.95] mb-0"
             style={{ letterSpacing: "-0.03em" }}
           >
             {data.title}
@@ -303,13 +303,13 @@ export default function Post({ slug }: Props) {
                   className="w-14 h-14 md:w-16 md:h-16 rounded-full object-cover  flex-shrink-0"
                 />
               ) : (
-                <div className="w-14 h-14 md:w-16 md:h-16 rounded-full bg-black text-white flex items-center justify-center font-black uppercase text-lg md:text-xl flex-shrink-0">
+                <div className="w-14 h-14 md:w-16 md:h-16 rounded-full bg-black text-white flex items-center justify-center font-black capitalize text-lg md:text-xl flex-shrink-0">
                   {data.author?.name ? data.author.name.charAt(0) : "M"}
                 </div>
               )}
               <div>
                 <p
-                  className="font-black uppercase text-xs md:text-sm mb-2"
+                  className="font-black capitalize text-xs md:text-sm mb-2"
                   style={{ letterSpacing: "0.1em" }}
                 >
                   {data.author?.name || "Mandvi Tripathi"}
@@ -371,7 +371,7 @@ export default function Post({ slug }: Props) {
           {/* Newsletter - Mobile */}
           <div className="border-t border-black pt-8">
             <h3
-              className="font-black uppercase text-sm mb-4"
+              className="font-black capitalize text-sm mb-4"
               style={{ letterSpacing: "0.1em" }}
             >
               Newsletter
@@ -391,7 +391,7 @@ export default function Post({ slug }: Props) {
               <button
                 type="submit"
                 disabled={newsletterStatus === "loading"}
-                className="w-full px-6 py-3 bg-black text-white font-black text-sm hover:bg-black/90 transition-colors disabled:opacity-50 uppercase"
+                className="w-full px-6 py-3 bg-black text-white font-black text-sm hover:bg-black/90 transition-colors disabled:opacity-50 capitalize"
                 style={{ letterSpacing: "0.1em" }}
               >
                 {newsletterStatus === "loading" ? "..." : "Subscribe"}
@@ -424,7 +424,7 @@ export default function Post({ slug }: Props) {
                     className="w-20 h-20 rounded-full object-cover "
                   />
                 ) : (
-                  <div className="w-20 h-20 rounded-full bg-black text-white flex items-center justify-center font-black uppercase text-2xl">
+                  <div className="w-20 h-20 rounded-full bg-black text-white flex items-center justify-center font-black capitalize text-2xl">
                     {data.author?.name ? data.author.name.charAt(0) : "M"}
                   </div>
                 )}
@@ -433,7 +433,7 @@ export default function Post({ slug }: Props) {
               {/* Author Name */}
               <div className="mb-4 pb-4 border-b border-black">
                 <p
-                  className="font-black uppercase text-sm mb-1"
+                  className="font-black capitalize text-sm mb-1"
                   style={{ letterSpacing: "0.1em" }}
                 >
                   {data.author?.name || "Mandvi Tripathi"}
@@ -514,7 +514,7 @@ export default function Post({ slug }: Props) {
               {/* Newsletter Section */}
               <div>
                 <h3
-                  className="font-black uppercase text-sm mb-4"
+                  className="font-black capitalize text-sm mb-4"
                   style={{ letterSpacing: "0.1em" }}
                 >
                   Newsletter
@@ -535,7 +535,7 @@ export default function Post({ slug }: Props) {
                   <button
                     type="submit"
                     disabled={newsletterStatus === "loading"}
-                    className="w-full px-4 py-2 bg-black text-white font-black text-xs hover:bg-black/90 transition-colors disabled:opacity-50 uppercase"
+                    className="w-full px-4 py-2 bg-black text-white font-black text-xs hover:bg-black/90 transition-colors disabled:opacity-50 capitalize"
                     style={{ letterSpacing: "0.1em" }}
                   >
                     {newsletterStatus === "loading" ? "..." : "Subscribe"}
@@ -557,7 +557,7 @@ export default function Post({ slug }: Props) {
               {/* Latest Articles Section - Title Only, No Images */}
               <div className="pt-8 border-t border-black">
                 <h3
-                  className="font-black uppercase text-sm mb-6"
+                  className="font-black capitalize text-sm mb-6"
                   style={{ letterSpacing: "0.1em" }}
                 >
                   Latest Articles
@@ -571,7 +571,7 @@ export default function Post({ slug }: Props) {
                         className="group block pb-6 border-b border-black/10 last:border-0 last:pb-0"
                       >
                         <article>
-                          <h4 className="text-xs font-black uppercase leading-tight mb-2 group-hover:opacity-70 transition-opacity">
+                          <h4 className="text-xs font-black capitalize leading-tight mb-2 group-hover:opacity-70 transition-opacity">
                             {post.title}
                           </h4>
                           <p className="text-xs meta-value">
@@ -584,7 +584,7 @@ export default function Post({ slug }: Props) {
                 </div>
                 <Link
                   href="/"
-                  className="inline-block mt-6 text-xs uppercase font-bold hover:opacity-70 transition-opacity"
+                  className="inline-block mt-6 text-xs capitalize font-bold hover:opacity-70 transition-opacity"
                   style={{ letterSpacing: "0.1em" }}
                 >
                   View All →
