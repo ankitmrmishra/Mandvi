@@ -377,7 +377,7 @@ xl:  1280px — Desktops
   "name": "Mandvi Tripathi",
   "jobTitle": "Legal Analyst & Researcher",
   "description": "Thoughtful writing on legal frameworks...",
-  "url": "https://mandvitripathi.com"
+  "url": "https://mandvi.blog"
 }
 ```
 

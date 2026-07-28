@@ -49,14 +49,14 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Mandvi Tripathi" }],
   creator: "Mandvi Tripathi",
-  metadataBase: new URL("https://mandvitripathi.com"),
+  metadataBase: new URL("https://mandvi.blog"),
   alternates: {
     canonical: "/",
   },
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://mandvitripathi.com",
+    url: "https://mandvi.blog",
     title: "Mandvi Tripathi | Legal Analysis, Essays & Book Reviews",
     description:
       "Thoughtful writing on legal frameworks, scholarly research, and critical book reviews.",

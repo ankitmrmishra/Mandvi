@@ -223,9 +223,9 @@ export function OrganizationSchema({
  *   name="Mandvi Tripathi"
  *   jobTitle="Legal Analyst & Researcher"
  *   description="Thoughtful writing on legal frameworks, scholarly research, and critical book reviews."
- *   url="https://mandvitripathi.com"
+ *   url="https://mandvi.blog"
  *   email="contact@mandvitripathi.com"
- *   image="https://mandvitripathi.com/photo.jpg"
+ *   image="https://mandvi.blog/photo.jpg"
  *   sameAs={[
  *     "https://twitter.com/mandvitripathi",
  *     "https://linkedin.com/in/mandvitripathi",
@@ -235,6 +235,6 @@ export function OrganizationSchema({
  * <WebsiteSchema
  *   name="Mandvi Tripathi"
  *   description="Legal analysis, essays, and book reviews"
- *   url="https://mandvitripathi.com"
+ *   url="https://mandvi.blog"
  * />
  */
