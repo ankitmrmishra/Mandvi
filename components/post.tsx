@@ -202,7 +202,7 @@ export default function Post({ slug }: Props) {
   // Generate share URLs
   const baseUrl = typeof window !== 'undefined' 
     ? window.location.origin 
-    : process.env.NEXT_PUBLIC_SITE_URL || 'https://mandvi.vercel.app';
+    : process.env.NEXT_PUBLIC_SITE_URL || 'https://mandvi.blog';
   const articleUrl = `${baseUrl}/${slug}`;
   const twitterShareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(`${data.title} by Mandvi Tripathi`)}&url=${encodeURIComponent(articleUrl)}`;
   const linkedinShareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(articleUrl)}`;

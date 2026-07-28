@@ -24,7 +24,7 @@ export async function generateMetadata({
     }
   }
 
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://mandvi.vercel.app";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://mandvi.blog";
   const articleUrl = `${baseUrl}/${params.slug}`;
 
   return {
