@@ -89,7 +89,7 @@ export default function RootLayout({
     >
       <body
         className={cn(
-          "antialiased dark",
+          "antialiased ",
           geistSans.variable,
           geistMono.variable,
         )}
