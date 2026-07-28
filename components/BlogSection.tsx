@@ -16,14 +16,21 @@ export default function BlogSection() {
       {/* Latest Articles Section */}
       <section id="articles" className="section-spacing border-t border-black">
         <div className="container-fixed">
-          {/* Section Header */}
-          <div className="mb-12">
+          <div className="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
             <h2
               className="text-4xl md:text-5xl lg:text-6xl font-black uppercase"
               style={{ letterSpacing: "-0.03em" }}
             >
               LATEST WRITING
             </h2>
+            {posts && posts.length > 4 && (
+              <Link
+                href="/archive"
+                className="inline-flex items-center gap-2 text-sm font-black uppercase tracking-[0.2em] hover:opacity-70 transition-opacity"
+              >
+                Read more <span aria-hidden="true">→</span>
+              </Link>
+            )}
           </div>
 
           {isLoading ? (
@@ -32,58 +39,25 @@ export default function BlogSection() {
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
-              {/* Skip the first post (already shown in hero) and show next 6 */}
-              {posts?.slice(1, 7).map((post) => (
+              {posts?.slice(1, 4).map((post) => (
                 <BlogCard key={post._id} post={post} />
               ))}
             </div>
           )}
-        </div>
-      </section>
 
-      {/* More Articles Section */}
-      {posts && posts.length > 7 && (
-        <section className="section-spacing border-t border-black">
-          <div className="container-fixed">
-            {/* Section Header */}
-            <div className="flex items-center justify-between mb-12">
-              <h2
-                className="text-3xl md:text-4xl lg:text-5xl font-black uppercase"
-                style={{ letterSpacing: "-0.03em" }}
-              >
-                MORE ARTICLES
-              </h2>
+          {posts && posts.length > 4 && (
+            <div className="mt-12 text-center">
               <Link
                 href="/archive"
-                className="text-xs uppercase font-bold hover:opacity-70 transition-opacity"
+                className="inline-block px-8 py-4 border border-black font-black uppercase text-sm hover:bg-black hover:text-white transition-colors"
                 style={{ letterSpacing: "0.1em" }}
               >
-                VIEW ALL →
+                Read all articles
               </Link>
             </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
-              {/* Show articles 8 onwards */}
-              {posts?.slice(7, 13).map((post) => (
-                <BlogCard key={post._id} post={post} />
-              ))}
-            </div>
-
-            {/* See All Button */}
-            {posts.length > 13 && (
-              <div className="mt-16 text-center">
-                <Link
-                  href="/archive"
-                  className="inline-block px-12 py-4 bg-black text-white font-black uppercase text-sm hover:bg-black/90 transition-colors"
-                  style={{ letterSpacing: "0.1em" }}
-                >
-                  VIEW ALL ARTICLES
-                </Link>
-              </div>
-            )}
-          </div>
-        </section>
-      )}
+          )}
+        </div>
+      </section>
     </>
   );
 }

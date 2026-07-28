@@ -1,11 +1,12 @@
 "use client";
 import React from "react";
 import Link from "next/link";
+import { ThemeSwitcher } from "./ThemeSwitcher";
 
 const Navbar = () => {
   return (
     <>
-      <nav className="bg-background sticky top-0 z-50">
+      <nav className="bg-background sticky top-0 z-50 border-b border-border">
         <div className="container-fixed">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
@@ -17,8 +18,8 @@ const Navbar = () => {
               MANDVI TRIPATHI
             </Link>
 
-            {/* Right Side: Nav Links + Divider + Social Icons */}
-            <div className="flex items-center gap-8">
+            {/* Right Side: Nav Links + Divider + Social Icons + Theme Switcher */}
+            <div className="flex items-center gap-6 md:gap-8">
               {/* Navigation Links */}
               <div className="hidden md:flex items-center gap-8">
                 <Link
@@ -45,10 +46,11 @@ const Navbar = () => {
               </div>
 
               {/* Vertical Divider */}
-              <div className="hidden md:block w-px h-6 bg-black"></div>
+              <div className="hidden md:block w-px h-6 bg-border"></div>
 
-              {/* Social Icons */}
-              <div className="flex items-center gap-4">
+              {/* Social Icons + Theme Switcher */}
+              <div className="flex items-center gap-3 md:gap-4">
+                <ThemeSwitcher />
                 <a
                   href="https://instagram.com"
                   target="_blank"
