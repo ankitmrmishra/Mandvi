@@ -38,23 +38,23 @@ export default async function Hero() {
   const readingTime = latestPost.readingTime || "5 min";
 
   return (
-    <section className="section-spacing">
+    <section className="py-12 md:py-20 lg:py-32">
       <div className="container-fixed">
         {/* Latest Article Hero */}
         <Link href={`/${latestPost.slug}`} className="group block">
           <article>
             {/* Category Label */}
-            <div className="mb-8">
+            <div className="mb-4 md:mb-8">
               <span className="pill-badge">{category}</span>
             </div>
 
             {/* Hero Title */}
-            <h1 className="text-hero font-black capitalize mb-12 group-hover:opacity-70 transition-opacity">
+            <h1 className="text-hero font-black capitalize mb-6 md:mb-12 group-hover:opacity-70 transition-opacity">
               {latestPost.title}
             </h1>
 
             {/* Meta Row */}
-            <div className="flex flex-wrap items-center gap-6 mb-12">
+            <div className="flex flex-wrap items-center gap-4 md:gap-6 mb-6 md:mb-12">
               <div className="flex items-center gap-2">
                 <span className="meta-label">By</span>
                 <span className="meta-value">
@@ -73,7 +73,7 @@ export default async function Hero() {
 
             {/* Excerpt */}
             {latestPost.excerpt && (
-              <p className="text-lg md:text-xl leading-[1.6] max-w-[800px] mb-12">
+              <p className="text-base md:text-lg lg:text-xl leading-[1.6] max-w-[800px] mb-6 md:mb-12">
                 {latestPost.excerpt}
               </p>
             )}
