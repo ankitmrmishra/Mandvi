@@ -51,7 +51,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <a href="mailto:contact@mandvitripathi.com" className="text-sm text-foreground/80 transition-opacity hover:text-foreground hover:opacity-80">
+                <a href="mailto:lawgicalinsights@gmail.com" className="text-sm text-foreground/80 transition-opacity hover:text-foreground hover:opacity-80">
                   Contact
                 </a>
               </li>
@@ -62,7 +62,7 @@ export default function Footer() {
             <h3 className="meta-label mb-6 text-foreground/70">CONNECT</h3>
             <ul className="space-y-3">
               <li>
-                <a href="mailto:contact@mandvitripathi.com" className="text-sm text-foreground/80 transition-opacity hover:text-foreground hover:opacity-80">
+                <a href="mailto:lawgicalinsights@gmail.com" className="text-sm text-foreground/80 transition-opacity hover:text-foreground hover:opacity-80">
                   Email
                 </a>
               </li>
@@ -82,7 +82,7 @@ export default function Footer() {
 
           <div className="flex items-center space-x-4 text-foreground/80">
             <a
-              href="mailto:contact@mandvitripathi.com"
+              href="mailto:lawgicalinsights@gmail.com"
               aria-label="Email"
               className="transition-opacity hover:opacity-70"
             >

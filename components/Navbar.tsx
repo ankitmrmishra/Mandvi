@@ -52,7 +52,7 @@ const Navbar = () => {
               <div className="flex items-center gap-3 md:gap-4">
                 <ThemeSwitcher />
                 <a
-                  href="https://instagram.com"
+                  href="https://www.instagram.com/lawgical.insights"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:opacity-70 transition-opacity"
@@ -71,7 +71,7 @@ const Navbar = () => {
                   </svg>
                 </a>
                 <a
-                  href="https://twitter.com"
+                  href="https://x.com/MandviTripathi8"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:opacity-70 transition-opacity"

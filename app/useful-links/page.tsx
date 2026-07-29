@@ -43,8 +43,8 @@ export default function UsefulLinksPage() {
               <p className="mb-4 text-sm leading-6 text-foreground/70">
                 If you want to get in touch, send an email directly.
               </p>
-              <a href="mailto:contact@mandvitripathi.com" className="text-sm font-black capitalize tracking-[0.2em] transition-opacity hover:opacity-70">
-                contact@mandvitripathi.com
+              <a href="mailto:lawgicalinsights@gmail.com" className="text-sm font-black capitalize tracking-[0.2em] transition-opacity hover:opacity-70">
+                lawgicalinsights@gmail.com
               </a>
             </div>
           </div>

@@ -224,11 +224,11 @@ export function OrganizationSchema({
  *   jobTitle="Legal Analyst & Researcher"
  *   description="Thoughtful writing on legal frameworks, scholarly research, and critical book reviews."
  *   url="https://mandvi.blog"
- *   email="contact@mandvitripathi.com"
+ *   email="lawgicalinsights@gmail.com"
  *   image="https://mandvi.blog/photo.jpg"
  *   sameAs={[
- *     "https://twitter.com/mandvitripathi",
- *     "https://linkedin.com/in/mandvitripathi",
+ *     "https://x.com/MandviTripathi8",
+ *     "https://www.instagram.com/lawgical.insights",
  *   ]}
  * />
  *
