@@ -34,13 +34,22 @@ export interface SanityPost {
 
 export interface SanityBookReview {
   _id: string;
+  _type: string;
+  title?: string;
+  slug: string;
   bookTitle: string;
-  authorOfBook: string;
+  authorOfBook?: string;
+  featuredImage?: unknown;
   bookCover?: unknown;
+  excerpt?: string;
   rating: number;
-  shortSummary: string;
+  shortSummary?: string;
   publishedDate: string;
+  readingTime?: string;
   genre?: string;
+  review?: unknown;
+  author?: SanityAuthor;
+  categories?: SanityCategory[];
 }
 
 export async function getPosts(): Promise<SanityPost[]> {
@@ -112,20 +121,69 @@ export async function getPostBySlug(slug: string): Promise<SanityPost | null> {
 
 export async function getBookReviews(): Promise<SanityBookReview[]> {
   try {
-    const query = `*[_type == "bookReview"] | order(publishedDate desc) {
+    const query = `*[_type == "bookReview" && !(_id in path("drafts.**"))] | order(publishedDate desc) {
       _id,
+      _type,
+      title,
+      "slug": slug.current,
       bookTitle,
       authorOfBook,
+      featuredImage,
       bookCover,
+      excerpt,
       rating,
       shortSummary,
       publishedDate,
-      genre
+      readingTime,
+      genre,
+      review,
+      author-> {
+        name,
+        photo
+      },
+      categories[]-> {
+        title,
+        "slug": slug.current
+      }
     }`;
     return await client.fetch(query);
   } catch (error) {
     console.error("Failed to fetch book reviews from Sanity.", error);
     return [];
+  }
+}
+
+export async function getBookReviewBySlug(slug: string): Promise<SanityBookReview | null> {
+  try {
+    const query = `*[_type == "bookReview" && slug.current == $slug][0] {
+      _id,
+      _type,
+      title,
+      "slug": slug.current,
+      bookTitle,
+      authorOfBook,
+      featuredImage,
+      bookCover,
+      genre,
+      excerpt,
+      readingTime,
+      rating,
+      shortSummary,
+      review,
+      publishedDate,
+      author-> {
+        name,
+        photo
+      },
+      categories[]-> {
+        title,
+        "slug": slug.current
+      }
+    }`;
+    return await client.fetch(query, { slug });
+  } catch (error) {
+    console.error("Failed to fetch book review by slug from Sanity.", error);
+    return null;
   }
 }
 

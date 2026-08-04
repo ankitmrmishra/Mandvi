@@ -16,10 +16,9 @@ import {blockContent} from './objects/blockContent'
 
 // Document Schemas
 import {author} from './documents/author'
-// import {bookReview} from './documents/bookReview' // DISABLED - Use Blog Posts with "Book Review" category instead
+import {bookReview} from './documents/bookReview'
 import {category} from './documents/category'
 import {tag} from './documents/tag'
-// import {essay} from './documents/essay' // DISABLED - Use Blog Posts with "Essay" category instead
 import {post} from './documents/post'
 // import {publication} from './documents/publication' // DISABLED - Use Blog Posts with "Publication" category instead
 // import {readingList} from './documents/readingList' // DISABLED - Optional feature
@@ -43,13 +42,12 @@ export const schemaTypes = [
   callout,
   blockContent,
 
-  // Documents (SIMPLIFIED - Only Blog Posts with Categories)
+  // Documents
   author,
-  // bookReview, // DISABLED
+  bookReview,
   category,
   tag,
-  // essay, // DISABLED
-  post, // ← USE THIS FOR EVERYTHING
+  post,
   // publication, // DISABLED
   // readingList, // DISABLED
   // researchArticle, // DISABLED

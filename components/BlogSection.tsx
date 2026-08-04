@@ -21,7 +21,7 @@ export default function BlogSection() {
               className="text-4xl md:text-5xl lg:text-6xl font-black capitalize"
               style={{ letterSpacing: "-0.03em" }}
             >
-              LATEST WRITING
+              LATEST ESSAYS
             </h2>
             {posts && posts.length > 4 && (
               <Link
@@ -39,7 +39,7 @@ export default function BlogSection() {
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
-              {posts?.slice(1, 4).map((post) => (
+              {posts?.slice(0, 3).map((post) => (
                 <BlogCard key={post._id} post={post} />
               ))}
             </div>

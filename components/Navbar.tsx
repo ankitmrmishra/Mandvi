@@ -30,6 +30,13 @@ const Navbar = () => {
                   Essays
                 </Link>
                 <Link
+                  href="/book-reviews"
+                  className="text-xs capitalize font-bold hover:opacity-70 transition-opacity"
+                  style={{ letterSpacing: "0.1em" }}
+                >
+                  Book Reviews
+                </Link>
+                <Link
                   href="/#about"
                   className="text-xs capitalize font-bold hover:opacity-70 transition-opacity"
                   style={{ letterSpacing: "0.1em" }}

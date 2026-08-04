@@ -5,222 +5,137 @@ export const bookReview = defineType({
   title: 'Book Review',
   type: 'document',
   groups: [
-    {name: 'bookInfo', title: 'Book Details', default: true},
-    {name: 'reviewContent', title: 'Review Content'},
-    {name: 'metadata', title: 'Publishing & Tags'},
+    {name: 'content', title: 'Review Content', default: true},
+    {name: 'book', title: 'Book Details'},
+    {name: 'publishing', title: 'Publishing'},
     {name: 'seo', title: 'SEO Settings'},
   ],
   fields: [
-    // --- Slug Field (REQUIRED FOR ROUTING) ---
+    defineField({
+      name: 'title',
+      title: 'Review Title',
+      type: 'string',
+      group: 'content',
+      description: 'Headline for the review, such as “Why this book still matters”.',
+      validation: (Rule) => Rule.required().error('Review title is required.'),
+    }),
     defineField({
       name: 'slug',
       title: 'Slug',
       type: 'slug',
-      description: 'URL-friendly identifier for this book review (e.g., "the-fault-in-our-stars")',
-      validation: (Rule) => Rule.required().error('Slug is required for the URL.'),
+      group: 'content',
+      description: 'URL-friendly identifier for this review.',
       options: {
-        source: 'bookTitle',
+        source: 'title',
         maxLength: 96,
       },
+      validation: (Rule) => Rule.required().error('Slug is required.'),
+    }),
+    defineField({
+      name: 'excerpt',
+      title: 'Excerpt',
+      type: 'text',
+      group: 'content',
+      rows: 3,
+      description: 'Short summary shown in cards and previews.',
+      validation: (Rule) => Rule.required().error('Excerpt is required.'),
+    }),
+    defineField({
+      name: 'featuredImage',
+      title: 'Featured Image',
+      type: 'customImage',
+      group: 'content',
+    }),
+    defineField({
+      name: 'review',
+      title: 'Full Review',
+      type: 'blockContent',
+      group: 'content',
+      description: 'The body of the review.',
+      validation: (Rule) => Rule.required().error('Review content is required.'),
     }),
 
-    // --- Book Details Group ---
     defineField({
       name: 'bookTitle',
       title: 'Book Title',
       type: 'string',
-      group: 'bookInfo',
+      group: 'book',
       validation: (Rule) => Rule.required().error('Book title is required.'),
     }),
     defineField({
       name: 'authorOfBook',
-      title: 'Author of Book',
+      title: 'Book Author',
       type: 'string',
-      group: 'bookInfo',
-      validation: (Rule) => Rule.required().error('Book author is required.'),
+      group: 'book',
     }),
     defineField({
       name: 'bookCover',
-      title: 'Book Cover Image',
+      title: 'Book Cover',
       type: 'customImage',
-      group: 'bookInfo',
-    }),
-    defineField({
-      name: 'publisher',
-      title: 'Publisher',
-      type: 'string',
-      group: 'bookInfo',
-    }),
-    defineField({
-      name: 'publicationYear',
-      title: 'Publication Year',
-      type: 'number',
-      group: 'bookInfo',
-      validation: (Rule) =>
-        Rule.integer()
-          .min(1000)
-          .max(new Date().getFullYear() + 2)
-          .error('Please enter a valid publication year.'),
-    }),
-    defineField({
-      name: 'isbn',
-      title: 'ISBN',
-      type: 'string',
-      group: 'bookInfo',
-      description: 'ISBN-10 or ISBN-13 format.',
-      validation: (Rule) =>
-        Rule.custom((isbn) => {
-          if (!isbn) return true
-          const cleanIsbn = isbn.replace(/[- ]/g, '')
-          const isbn10Regex = /^(?:\d[\d- ]{7,11}\d|[\dX]{10})$/
-          const isbn13Regex = /^(?:97[89][\d- ]{9,13}\d|\d{13})$/
-
-          if (cleanIsbn.length === 10 && isbn10Regex.test(cleanIsbn)) return true
-          if (cleanIsbn.length === 13 && isbn13Regex.test(cleanIsbn)) return true
-          return 'Please enter a valid ISBN-10 or ISBN-13.'
-        }),
-    }),
-    defineField({
-      name: 'pages',
-      title: 'Number of Pages',
-      type: 'number',
-      group: 'bookInfo',
-      validation: (Rule) => Rule.positive().integer(),
+      group: 'book',
+      description: 'Optional cover image for the book.',
     }),
     defineField({
       name: 'language',
       title: 'Language',
       type: 'string',
-      group: 'bookInfo',
-      initialValue: 'English',
+      group: 'book',
+      description: 'Language of the book, such as English or French.',
     }),
     defineField({
       name: 'genre',
       title: 'Genre',
       type: 'string',
-      group: 'bookInfo',
-      description: 'E.g., Biography, History, Computer Science, Fiction.',
-    }),
-
-    // --- Review Content Group ---
-    defineField({
-      name: 'excerpt',
-      title: 'Excerpt',
-      type: 'text',
-      group: 'reviewContent',
-      rows: 2,
-      description:
-        'Brief teaser text shown in preview cards (auto-generated from short summary if left empty).',
-    }),
-    defineField({
-      name: 'readingTime',
-      title: 'Reading Time',
-      type: 'string',
-      group: 'reviewContent',
-      description: 'E.g., "5 min" or "10 min read"',
-      placeholder: '5 min',
+      group: 'book',
+      description: 'For example: Memoir, Law, Fiction, History.',
     }),
     defineField({
       name: 'rating',
-      title: 'Rating (1-5 Stars)',
+      title: 'Rating (1-5)',
       type: 'number',
-      group: 'reviewContent',
-      description: 'Select your rating from 1 (Poor) to 5 (Outstanding).',
-      validation: (Rule) =>
-        Rule.required()
-          .min(1)
-          .max(5)
-          .precision(1)
-          .error('Rating is required and must be between 1 and 5.'),
+      group: 'book',
+      initialValue: 4,
+      validation: (Rule) => Rule.required().min(1).max(5).precision(1).error('Rating must be between 1 and 5.'),
     }),
     defineField({
       name: 'shortSummary',
       title: 'Short Summary',
       type: 'text',
-      group: 'reviewContent',
+      group: 'book',
       rows: 3,
-      description: 'A 2-3 sentence overview of what the book is about.',
-      validation: (Rule) => Rule.required().error('A short summary is required.'),
-    }),
-    defineField({
-      name: 'review',
-      title: 'Full Review Analysis',
-      type: 'blockContent',
-      group: 'reviewContent',
-      description: 'Your detailed breakdown, arguments, and commentary on the book.',
-      validation: (Rule) => Rule.required().error('The review content is required.'),
-    }),
-    defineField({
-      name: 'keyTakeaways',
-      title: 'Key Takeaways',
-      type: 'array',
-      group: 'reviewContent',
-      of: [{type: 'string'}],
-      description: 'Main points or lessons you learned from reading this book.',
-    }),
-    defineField({
-      name: 'favoriteQuotes',
-      title: 'Favorite Quotes',
-      type: 'array',
-      group: 'reviewContent',
-      of: [{type: 'quote'}],
-    }),
-    defineField({
-      name: 'pros',
-      title: 'Pros / What Was Done Well',
-      type: 'array',
-      group: 'reviewContent',
-      of: [{type: 'string'}],
-    }),
-    defineField({
-      name: 'cons',
-      title: 'Cons / Areas of Criticism',
-      type: 'array',
-      group: 'reviewContent',
-      of: [{type: 'string'}],
-    }),
-    defineField({
-      name: 'whoShouldRead',
-      title: 'Who Should Read This Book?',
-      type: 'text',
-      group: 'reviewContent',
-      rows: 2,
-      description: 'Describe the target audience or who would benefit most from this book.',
-    }),
-    defineField({
-      name: 'recommendation',
-      title: 'Final Recommendation & Verdict',
-      type: 'text',
-      group: 'reviewContent',
-      rows: 2,
-      description: 'A concluding summary statement of your recommendation.',
+      description: 'A short summary of the book and its main idea.',
     }),
 
-    // --- Metadata Group ---
+    defineField({
+      name: 'author',
+      title: 'Reviewer / Columnist',
+      type: 'reference',
+      to: [{type: 'author'}],
+      group: 'publishing',
+      validation: (Rule) => Rule.required().error('Please select the reviewer.'),
+    }),
     defineField({
       name: 'publishedDate',
       title: 'Publish Date',
       type: 'date',
-      group: 'metadata',
-      validation: (Rule) => Rule.required().error('Publication date is required.'),
+      group: 'publishing',
       initialValue: () => new Date().toISOString().split('T')[0],
+      validation: (Rule) => Rule.required().error('Publication date is required.'),
+    }),
+    defineField({
+      name: 'readingTime',
+      title: 'Reading Time',
+      type: 'string',
+      group: 'publishing',
+      placeholder: '5 min',
     }),
     defineField({
       name: 'categories',
       title: 'Categories',
       type: 'array',
-      group: 'metadata',
+      group: 'publishing',
       of: [{type: 'reference', to: [{type: 'category'}]}],
     }),
-    defineField({
-      name: 'tags',
-      title: 'Tags',
-      type: 'array',
-      group: 'metadata',
-      of: [{type: 'reference', to: [{type: 'tag'}]}],
-    }),
-
-    // --- SEO Group ---
     defineField({
       name: 'seo',
       title: 'Search Engine Optimization',
@@ -230,18 +145,19 @@ export const bookReview = defineType({
   ],
   preview: {
     select: {
-      title: 'bookTitle',
-      author: 'authorOfBook',
+      title: 'title',
+      book: 'bookTitle',
+      author: 'author.name',
       rating: 'rating',
-      media: 'bookCover',
+      media: 'featuredImage',
       published: 'publishedDate',
     },
     prepare(selection) {
-      const {title, author, rating, media, published} = selection
+      const {title, book, author, rating, media, published} = selection
       const ratingStars = rating ? '⭐'.repeat(rating) : ''
       return {
-        title: title || 'Untitled Review',
-        subtitle: `${author ? `by ${author}` : 'Unknown Author'} | ${ratingStars} (${published || 'Draft'})`,
+        title: title || book || 'Untitled Review',
+        subtitle: `${author ? `by ${author}` : 'Unknown Reviewer'} | ${ratingStars} (${published || 'Draft'})`,
         media,
       }
     },

@@ -29,10 +29,10 @@ export const structure: StructureResolver = (S) =>
                 .title('Blog Posts')
                 .icon(() => '✍️')
                 .child(S.documentTypeList('post').title('Blog Posts')),
-              // All other content types removed - use Blog Posts with Categories instead:
-              // - Essays → Blog Post with "Essay" category
-              // - Book Reviews → Blog Post with "Book Review" category
-              // - Research → Blog Post with "Research" category
+              S.listItem()
+                .title('Book Reviews')
+                .icon(() => '📚')
+                .child(S.documentTypeList('bookReview').title('Book Reviews')),
             ]),
         ),
 

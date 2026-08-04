@@ -1,6 +1,7 @@
 import React from "react";
 import Hero from "@/components/Hero";
 import BlogSection from "@/components/BlogSection";
+import BookReviewsSection from "@/components/BookReviewsSection";
 
 import WhoIAm from "@/components/WhoIAm";
 import Newsletter from "@/components/Newsletter";
@@ -61,9 +62,14 @@ export default async function Home() {
       {/* Hero Section */}
       <Hero />
 
-      {/* Articles Section */}
+      {/* Essays Section */}
       <HydrationBoundary state={dehydrate(queryClient)}>
         <BlogSection />
+      </HydrationBoundary>
+
+      {/* Book Reviews Section */}
+      <HydrationBoundary state={dehydrate(queryClient)}>
+        <BookReviewsSection />
       </HydrationBoundary>
 
       {/* About Section */}
