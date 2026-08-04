@@ -202,10 +202,10 @@ export default async function BookReviewDetailPage({ params }: { params: { slug:
             <div className="space-y-6">
               <div className="rounded border border-border/70 p-6 md:p-8 bg-card">
                 <p className="text-sm font-black uppercase tracking-[0.2em] mb-3">Summary</p>
-                <p className="text-sm md:text-base leading-[1.7]">{review.shortSummary || review.excerpt}</p>
+                <p className="text-sm md:text-base leading-[1.7] text-justify">{review.shortSummary || review.excerpt}</p>
               </div>
               {hasReviewContent ? (
-                <div className="prose prose-neutral max-w-none">
+                <div className="prose prose-neutral max-w-none text-justify">
                   <PortableText value={review.review as PortableTextProps["value"]} components={portableTextComponents} />
                 </div>
               ) : null}
@@ -267,10 +267,10 @@ export default async function BookReviewDetailPage({ params }: { params: { slug:
           <div className="space-y-6">
             <div className="rounded border border-border/70 p-6 bg-card">
               <p className="text-sm font-black uppercase tracking-[0.2em] mb-3">Summary</p>
-              <p className="text-sm leading-[1.7]">{review.shortSummary || review.excerpt}</p>
+              <p className="text-sm leading-[1.7] text-justify">{review.shortSummary || review.excerpt}</p>
             </div>
             {hasReviewContent ? (
-              <div className="prose prose-neutral max-w-none">
+              <div className="prose prose-neutral max-w-none text-justify">
                 <PortableText value={review.review as PortableTextProps["value"]} components={portableTextComponents} />
               </div>
             ) : null}

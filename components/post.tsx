@@ -92,7 +92,7 @@ const portableTextComponents = {
       </h4>
     ),
     normal: ({ children }: any) => (
-      <p className="text-sm md:text-base leading-[1.6] my-4 md:my-6 max-w-[600px]">
+      <p className="text-sm md:text-base leading-[1.6] my-4 md:my-6 max-w-[600px] text-justify">
         {children}
       </p>
     ),
@@ -278,7 +278,7 @@ export default function Post({ slug }: Props) {
         <div className="lg:hidden">
           {/* Article Content */}
           <article className="mb-12 md:mb-16">
-            <div className="blog-content">
+            <div className="blog-content text-justify">
               {data.content ? (
                 <PortableText
                   value={data.content as any}
@@ -494,7 +494,7 @@ export default function Post({ slug }: Props) {
 
           {/* Center - Article Content */}
           <article className="lg:col-span-6">
-            <div className="blog-content">
+            <div className="blog-content text-justify">
               {data.content ? (
                 <PortableText
                   value={data.content as any}
