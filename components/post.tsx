@@ -235,7 +235,7 @@ export default function Post({ slug }: Props) {
         {/* Meta Row: Author, Date, Read Time, Label Badge */}
         <div className="flex flex-wrap items-center gap-3 md:gap-6 pt-4 md:pt-6 border-t border-black text-xs md:text-sm">
           <div className="flex items-center gap-2">
-            <span className="meta-label text-[10px] md:text-xs">Text</span>
+            <span className="meta-label text-[10px] md:text-xs">Author</span>
             <span className="meta-value text-[10px] md:text-xs">
               {data.author?.name || "Mandvi Tripathi"}
             </span>
@@ -246,12 +246,12 @@ export default function Post({ slug }: Props) {
               {publishDate}
             </span>
           </div>
-          <div className="flex items-center gap-2">
+          {/* <div className="flex items-center gap-2">
             <span className="meta-label text-[10px] md:text-xs">Read</span>
             <span className="meta-value text-[10px] md:text-xs">
               {data.readingTime || "5 min"}
             </span>
-          </div>
+          </div> */}
           <div className="ml-auto">
             <span className="pill-badge text-[9px] md:text-[10px] px-2 md:px-3 py-0.5 md:py-1">
               {category}
