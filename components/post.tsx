@@ -29,9 +29,11 @@ const portableTextComponents = {
             alt={value.alt || ""}
             className="w-full max-w-2xl object-contain"
           />
-          {value.caption && (
-            <figcaption className="text-center text-xs text-muted-foreground mt-3 md:mt-4">
-              {value.caption}
+          {(value.caption || value.photographer || value.credit) && (
+            <figcaption className="text-center text-xs text-muted-foreground mt-3 md:mt-4 space-y-1">
+              {value.caption && <p>{value.caption}</p>}
+              {value.photographer && <p>Photo: {value.photographer}</p>}
+              {value.credit && <p>Source: {value.credit}</p>}
             </figcaption>
           )}
         </figure>
@@ -167,11 +169,19 @@ export default function Post({ slug }: Props) {
 
   // Resolve cover image
   let coverImageUrl = "";
-  if (data.featuredImage) {
+  const featuredImage = data.featuredImage as {
+    alt?: string
+    caption?: string
+    credit?: string
+    photographer?: string
+    asset?: unknown
+  } | undefined
+
+  if (featuredImage) {
     try {
-      coverImageUrl = urlFor(data.featuredImage).width(1400).height(800).url();
+      coverImageUrl = urlFor(featuredImage).width(1400).height(800).url();
     } catch {
-      const img = data.featuredImage as { url?: string };
+      const img = featuredImage as { url?: string };
       if (img && img.url) coverImageUrl = img.url;
     }
   }
@@ -208,7 +218,7 @@ export default function Post({ slug }: Props) {
   const linkedinShareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(articleUrl)}`;
 
   return (
-    <div className="min-h-screen pt-0 bg-background">
+    <div className="h-full pb-52 md:pb-0 pt-0 bg-background">
       {/* Header Section */}
       <div className="container-fixed pt-8 md:pt-12 pb-6 md:pb-8">
         <div className="flex items-center justify-between mb-8 md:mb-12">
@@ -252,23 +262,34 @@ export default function Post({ slug }: Props) {
               {data.readingTime || "5 min"}
             </span>
           </div> */}
-          <div className="ml-auto">
+          {/* <div className="ml-auto">
             <span className="pill-badge text-[9px] md:text-[10px] px-2 md:px-3 py-0.5 md:py-1">
               {category}
             </span>
-          </div>
+          </div> */}
         </div>
       </div>
 
       {/* Hero Image */}
       {coverImageUrl && (
         <div className="container-fixed mb-12 md:mb-16">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={coverImageUrl}
-            alt={data.title}
-            className="w-full object-cover "
-          />
+          <figure className="relative overflow-hidden">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={coverImageUrl}
+              alt={featuredImage?.alt || data.title}
+              className="w-full object-cover"
+            />
+            {(featuredImage?.caption || featuredImage?.credit || featuredImage?.photographer) && (
+              <figcaption className="backdrop-blur-md  p-2 text-xs md:text-sm text-black dark:text-primary border-t border-black/10  bottom-0 left-0 right-0 w-full ">
+                {featuredImage.caption && <div className="font-semibold w-full">{featuredImage.caption}</div>}
+                <div className="flex md:flex-row flex-col  md:gap-3 gap-1 mt-2 text-[11px] md:text-xs text-muted-foreground w-full">
+                  {featuredImage.photographer && <span>Photo: {featuredImage.photographer}</span>}
+                  {featuredImage.credit && <span>Source: {featuredImage.credit}</span>}
+                </div>
+              </figcaption>
+            )}
+          </figure>
         </div>
       )}
 
