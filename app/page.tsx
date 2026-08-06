@@ -3,7 +3,7 @@ import Hero from "@/components/Hero";
 import BlogSection from "@/components/BlogSection";
 import BookReviewsSection from "@/components/BookReviewsSection";
 
-import WhoIAm from "@/components/WhoIAm";
+// import WhoIAm from "@/components/WhoIAm";
 import Newsletter from "@/components/Newsletter";
 import Footer from "@/components/Footer";
 import { getSiteSettings } from "@/lib/request";
@@ -73,7 +73,7 @@ export default async function Home() {
       </HydrationBoundary>
 
       {/* About Section */}
-      <WhoIAm />
+      {/* <WhoIAm /> */}
 
       {/* Newsletter Section */}
       <Newsletter settings={settings?.newsletterSettings} />

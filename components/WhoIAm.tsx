@@ -36,7 +36,7 @@ export default function WhoIAm() {
     }
   }
 
-  const name = author.name || "Mandvi Tripathi";
+  const name = "Mandvi Tripathi";
   const position = author.position || "";
   const university = author.university || "";
   const contactEmail = author.email || "";
